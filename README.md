@@ -1,4 +1,7 @@
 Comment utiliser git :
+
+
+
 1- Relier git hub et git :
 git config --global user.name "pseudo a mettre ici"
 git config --global user.email email a mettre ici
