@@ -13,7 +13,7 @@ cd 'chemin d'acces au fichier'
 3- Comment sauvegarder son code et l'envoyer :
 A) git add .
 B) git commit -m "Message du commit modifiable"  //Jusque la on fait une copie de notre code en local
-C) git push origin main //On envoi le code au git hub (Si probleme avec le mot main le remplacer par master)
+C) git push origin master (ou main )//On envoi le code au git hub (Si probleme avec le mot main le remplacer par master)
 
-4- Recuperer des fichiers
+4- Recuperer des fichiers :
 git pull origin master (mettre main si ca ne marche pas)
