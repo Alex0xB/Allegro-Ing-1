@@ -10,17 +10,17 @@
 				{
 					"includeDirectories" : 
 					[
-						"C:/MinGW/lib/gcc/mingw32/6.3.0/include",
-						"C:/MinGW/include",
-						"C:/MinGW/lib/gcc/mingw32/6.3.0/include-fixed",
-						"C:/MinGW/mingw32/include"
+						"C:/Users/pdemo/MinGW/lib/gcc/mingw32/6.3.0/include",
+						"C:/Users/pdemo/MinGW/include",
+						"C:/Users/pdemo/MinGW/lib/gcc/mingw32/6.3.0/include-fixed",
+						"C:/Users/pdemo/MinGW/mingw32/include"
 					],
 					"linkDirectories" : 
 					[
-						"C:/MinGW/lib/gcc/mingw32/6.3.0",
-						"C:/MinGW/lib/gcc",
-						"C:/MinGW/mingw32/lib",
-						"C:/MinGW/lib"
+						"C:/Users/pdemo/MinGW/lib/gcc/mingw32/6.3.0",
+						"C:/Users/pdemo/MinGW/lib/gcc",
+						"C:/Users/pdemo/MinGW/mingw32/lib",
+						"C:/Users/pdemo/MinGW/lib"
 					],
 					"linkFrameworkDirectories" : [],
 					"linkLibraries" : 
@@ -39,7 +39,7 @@
 						"mingwex"
 					]
 				},
-				"path" : "C:/MinGW/bin/gcc.exe",
+				"path" : "C:/Users/pdemo/MinGW/bin/gcc.exe",
 				"version" : "6.3.0"
 			},
 			"language" : "C",
@@ -53,7 +53,7 @@
 			"compiler" : 
 			{
 				"implicit" : {},
-				"path" : "C:/MinGW/bin/windres.exe"
+				"path" : "C:/Users/pdemo/MinGW/bin/windres.exe"
 			},
 			"language" : "RC",
 			"sourceFileExtensions" : 
