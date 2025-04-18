@@ -39,6 +39,7 @@ void sauvegarder(t_personnage* personnage) {
 
         FILE* pt3 = fopen("nom.txt", "a"); //Je rajoute le nom du joueur dans la liste
         fprintf(pt3, "%s\n", personnage->nom);
+        fclose(pt3);
     }
 }
 
