@@ -3,4 +3,6 @@ project(allegro_projet_v1 C)
 
 set(CMAKE_C_STANDARD 11)
 
-add_executable(allegro_projet_v1 main.c)
+add_executable(allegro_projet_v1 main.c
+        sauvegarde.c
+        sauvegarde.h)

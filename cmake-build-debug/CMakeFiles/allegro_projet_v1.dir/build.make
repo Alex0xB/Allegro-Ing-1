@@ -43,19 +43,19 @@ cmake_force:
 SHELL = cmd.exe
 
 # The CMake executable.
-CMAKE_COMMAND = "C:\Users\nguye\CLion 2024.2.2\bin\cmake\win\x64\bin\cmake.exe"
+CMAKE_COMMAND = "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe"
 
 # The command to remove a file.
-RM = "C:\Users\nguye\CLion 2024.2.2\bin\cmake\win\x64\bin\cmake.exe" -E rm -f
+RM = "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\Users\remyd\Allegro-Ing-1
+CMAKE_SOURCE_DIR = C:\Users\Alexis\Allegro-Ing-1
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Users\remyd\Allegro-Ing-1\cmake-build-debug
+CMAKE_BINARY_DIR = C:\Users\Alexis\Allegro-Ing-1\cmake-build-debug
 
 # Include any dependencies generated for this target.
 include CMakeFiles/allegro_projet_v1.dir/depend.make
@@ -69,32 +69,48 @@ include CMakeFiles/allegro_projet_v1.dir/progress.make
 include CMakeFiles/allegro_projet_v1.dir/flags.make
 
 CMakeFiles/allegro_projet_v1.dir/main.c.obj: CMakeFiles/allegro_projet_v1.dir/flags.make
-CMakeFiles/allegro_projet_v1.dir/main.c.obj: C:/Users/remyd/Allegro-Ing-1/main.c
+CMakeFiles/allegro_projet_v1.dir/main.c.obj: C:/Users/Alexis/Allegro-Ing-1/main.c
 CMakeFiles/allegro_projet_v1.dir/main.c.obj: CMakeFiles/allegro_projet_v1.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\remyd\Allegro-Ing-1\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/allegro_projet_v1.dir/main.c.obj"
-	C:\Users\remyd\DOWNLO~1\MINGWA~1\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/allegro_projet_v1.dir/main.c.obj -MF CMakeFiles\allegro_projet_v1.dir\main.c.obj.d -o CMakeFiles\allegro_projet_v1.dir\main.c.obj -c C:\Users\remyd\Allegro-Ing-1\main.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Alexis\Allegro-Ing-1\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/allegro_projet_v1.dir/main.c.obj"
+	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/allegro_projet_v1.dir/main.c.obj -MF CMakeFiles\allegro_projet_v1.dir\main.c.obj.d -o CMakeFiles\allegro_projet_v1.dir\main.c.obj -c C:\Users\Alexis\Allegro-Ing-1\main.c
 
 CMakeFiles/allegro_projet_v1.dir/main.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/allegro_projet_v1.dir/main.c.i"
-	C:\Users\remyd\DOWNLO~1\MINGWA~1\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\remyd\Allegro-Ing-1\main.c > CMakeFiles\allegro_projet_v1.dir\main.c.i
+	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\Alexis\Allegro-Ing-1\main.c > CMakeFiles\allegro_projet_v1.dir\main.c.i
 
 CMakeFiles/allegro_projet_v1.dir/main.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/allegro_projet_v1.dir/main.c.s"
-	C:\Users\remyd\DOWNLO~1\MINGWA~1\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\remyd\Allegro-Ing-1\main.c -o CMakeFiles\allegro_projet_v1.dir\main.c.s
+	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\Alexis\Allegro-Ing-1\main.c -o CMakeFiles\allegro_projet_v1.dir\main.c.s
+
+CMakeFiles/allegro_projet_v1.dir/sauvegarde.c.obj: CMakeFiles/allegro_projet_v1.dir/flags.make
+CMakeFiles/allegro_projet_v1.dir/sauvegarde.c.obj: C:/Users/Alexis/Allegro-Ing-1/sauvegarde.c
+CMakeFiles/allegro_projet_v1.dir/sauvegarde.c.obj: CMakeFiles/allegro_projet_v1.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Alexis\Allegro-Ing-1\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/allegro_projet_v1.dir/sauvegarde.c.obj"
+	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/allegro_projet_v1.dir/sauvegarde.c.obj -MF CMakeFiles\allegro_projet_v1.dir\sauvegarde.c.obj.d -o CMakeFiles\allegro_projet_v1.dir\sauvegarde.c.obj -c C:\Users\Alexis\Allegro-Ing-1\sauvegarde.c
+
+CMakeFiles/allegro_projet_v1.dir/sauvegarde.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/allegro_projet_v1.dir/sauvegarde.c.i"
+	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\Alexis\Allegro-Ing-1\sauvegarde.c > CMakeFiles\allegro_projet_v1.dir\sauvegarde.c.i
+
+CMakeFiles/allegro_projet_v1.dir/sauvegarde.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/allegro_projet_v1.dir/sauvegarde.c.s"
+	C:\MinGW\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\Alexis\Allegro-Ing-1\sauvegarde.c -o CMakeFiles\allegro_projet_v1.dir\sauvegarde.c.s
 
 # Object files for target allegro_projet_v1
 allegro_projet_v1_OBJECTS = \
-"CMakeFiles/allegro_projet_v1.dir/main.c.obj"
+"CMakeFiles/allegro_projet_v1.dir/main.c.obj" \
+"CMakeFiles/allegro_projet_v1.dir/sauvegarde.c.obj"
 
 # External object files for target allegro_projet_v1
 allegro_projet_v1_EXTERNAL_OBJECTS =
 
 allegro_projet_v1.exe: CMakeFiles/allegro_projet_v1.dir/main.c.obj
+allegro_projet_v1.exe: CMakeFiles/allegro_projet_v1.dir/sauvegarde.c.obj
 allegro_projet_v1.exe: CMakeFiles/allegro_projet_v1.dir/build.make
 allegro_projet_v1.exe: CMakeFiles/allegro_projet_v1.dir/linkLibs.rsp
 allegro_projet_v1.exe: CMakeFiles/allegro_projet_v1.dir/objects1.rsp
 allegro_projet_v1.exe: CMakeFiles/allegro_projet_v1.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=C:\Users\remyd\Allegro-Ing-1\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking C executable allegro_projet_v1.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=C:\Users\Alexis\Allegro-Ing-1\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking C executable allegro_projet_v1.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\allegro_projet_v1.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -106,6 +122,6 @@ CMakeFiles/allegro_projet_v1.dir/clean:
 .PHONY : CMakeFiles/allegro_projet_v1.dir/clean
 
 CMakeFiles/allegro_projet_v1.dir/depend:
-	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" C:\Users\remyd\Allegro-Ing-1 C:\Users\remyd\Allegro-Ing-1 C:\Users\remyd\Allegro-Ing-1\cmake-build-debug C:\Users\remyd\Allegro-Ing-1\cmake-build-debug C:\Users\remyd\Allegro-Ing-1\cmake-build-debug\CMakeFiles\allegro_projet_v1.dir\DependInfo.cmake "--color=$(COLOR)"
+	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" C:\Users\Alexis\Allegro-Ing-1 C:\Users\Alexis\Allegro-Ing-1 C:\Users\Alexis\Allegro-Ing-1\cmake-build-debug C:\Users\Alexis\Allegro-Ing-1\cmake-build-debug C:\Users\Alexis\Allegro-Ing-1\cmake-build-debug\CMakeFiles\allegro_projet_v1.dir\DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/allegro_projet_v1.dir/depend
 

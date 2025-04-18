@@ -39,7 +39,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "allegro_projet_v1::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-allegro_projet_v1-Debug-b9792442a3e2288e5463.json",
+					"jsonFile" : "target-allegro_projet_v1-Debug-d2bb065316b408064b38.json",
 					"name" : "allegro_projet_v1",
 					"projectIndex" : 0
 				}
@@ -49,8 +49,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "C:/Users/remyd/Allegro-Ing-1/cmake-build-debug",
-		"source" : "C:/Users/remyd/Allegro-Ing-1"
+		"build" : "C:/Users/Alexis/Allegro-Ing-1/cmake-build-debug",
+		"source" : "C:/Users/Alexis/Allegro-Ing-1"
 	},
 	"version" : 
 	{

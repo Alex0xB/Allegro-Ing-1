@@ -15,7 +15,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "C:/Users/remyd/Downloads/MinGW avec Allegro 4/MinGW/bin/addr2line.exe"
+			"value" : "C:/MinGW/bin/addr2line.exe"
 		},
 		{
 			"name" : "CMAKE_AR",
@@ -31,7 +31,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "C:/Users/remyd/Downloads/MinGW avec Allegro 4/MinGW/bin/ar.exe"
+			"value" : "C:/MinGW/bin/ar.exe"
 		},
 		{
 			"name" : "CMAKE_BUILD_TYPE",
@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "c:/Users/remyd/Allegro-Ing-1/cmake-build-debug"
+			"value" : "c:/Users/Alexis/Allegro-Ing-1/cmake-build-debug"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -115,7 +115,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "C:/Users/nguye/CLion 2024.2.2/bin/cmake/win/x64/bin/cmake.exe"
+			"value" : "C:/Program Files/JetBrains/CLion 2024.2.1/bin/cmake/win/x64/bin/cmake.exe"
 		},
 		{
 			"name" : "CMAKE_CPACK_COMMAND",
@@ -127,7 +127,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "C:/Users/nguye/CLion 2024.2.2/bin/cmake/win/x64/bin/cpack.exe"
+			"value" : "C:/Program Files/JetBrains/CLion 2024.2.1/bin/cmake/win/x64/bin/cpack.exe"
 		},
 		{
 			"name" : "CMAKE_CTEST_COMMAND",
@@ -139,7 +139,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "C:/Users/nguye/CLion 2024.2.2/bin/cmake/win/x64/bin/ctest.exe"
+			"value" : "C:/Program Files/JetBrains/CLion 2024.2.1/bin/cmake/win/x64/bin/ctest.exe"
 		},
 		{
 			"name" : "CMAKE_C_COMPILER",
@@ -155,7 +155,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "C:/Users/remyd/Downloads/MinGW avec Allegro 4/MinGW/bin/gcc.exe"
+			"value" : "C:/MinGW/bin/gcc.exe"
 		},
 		{
 			"name" : "CMAKE_C_COMPILER_AR",
@@ -171,7 +171,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "C:/Users/remyd/Downloads/MinGW avec Allegro 4/MinGW/bin/gcc-ar.exe"
+			"value" : "C:/MinGW/bin/gcc-ar.exe"
 		},
 		{
 			"name" : "CMAKE_C_COMPILER_RANLIB",
@@ -187,7 +187,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "C:/Users/remyd/Downloads/MinGW avec Allegro 4/MinGW/bin/gcc-ranlib.exe"
+			"value" : "C:/MinGW/bin/gcc-ranlib.exe"
 		},
 		{
 			"name" : "CMAKE_C_FLAGS",
@@ -299,7 +299,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "C:/Users/remyd/Downloads/MinGW avec Allegro 4/MinGW/bin/dlltool.exe"
+			"value" : "C:/MinGW/bin/dlltool.exe"
 		},
 		{
 			"name" : "CMAKE_EXECUTABLE_FORMAT",
@@ -415,7 +415,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Users/remyd/Allegro-Ing-1/cmake-build-debug/CMakeFiles/pkgRedirects"
+			"value" : "C:/Users/Alexis/Allegro-Ing-1/cmake-build-debug/CMakeFiles/pkgRedirects"
 		},
 		{
 			"name" : "CMAKE_GENERATOR",
@@ -487,7 +487,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "C:/Users/remyd/Allegro-Ing-1"
+			"value" : "C:/Users/Alexis/Allegro-Ing-1"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -515,7 +515,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "C:/Users/remyd/Downloads/MinGW avec Allegro 4/MinGW/bin/ld.exe"
+			"value" : "C:/MinGW/bin/ld.exe"
 		},
 		{
 			"name" : "CMAKE_MAKE_PROGRAM",
@@ -527,11 +527,11 @@
 				},
 				{
 					"name" : "HELPSTRING",
-					"value" : "make program"
+					"value" : "Path to a program."
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "C:/Users/remyd/DOWNLO~1/MINGWA~1/MinGW/bin/mingw32-make.exe"
+			"value" : "C:/MinGW/bin/mingw32-make.exe"
 		},
 		{
 			"name" : "CMAKE_MODULE_LINKER_FLAGS",
@@ -627,7 +627,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "C:/Users/remyd/Downloads/MinGW avec Allegro 4/MinGW/bin/nm.exe"
+			"value" : "C:/MinGW/bin/nm.exe"
 		},
 		{
 			"name" : "CMAKE_NUMBER_OF_MAKEFILES",
@@ -655,7 +655,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "C:/Users/remyd/Downloads/MinGW avec Allegro 4/MinGW/bin/objcopy.exe"
+			"value" : "C:/MinGW/bin/objcopy.exe"
 		},
 		{
 			"name" : "CMAKE_OBJDUMP",
@@ -671,7 +671,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "C:/Users/remyd/Downloads/MinGW avec Allegro 4/MinGW/bin/objdump.exe"
+			"value" : "C:/MinGW/bin/objdump.exe"
 		},
 		{
 			"name" : "CMAKE_PLATFORM_INFO_INITIALIZED",
@@ -735,7 +735,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "C:/Users/remyd/Downloads/MinGW avec Allegro 4/MinGW/bin/ranlib.exe"
+			"value" : "C:/MinGW/bin/ranlib.exe"
 		},
 		{
 			"name" : "CMAKE_RC_COMPILER",
@@ -751,7 +751,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "C:/Users/remyd/Downloads/MinGW avec Allegro 4/MinGW/bin/windres.exe"
+			"value" : "C:/MinGW/bin/windres.exe"
 		},
 		{
 			"name" : "CMAKE_RC_COMPILER_WORKS",
@@ -859,7 +859,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "C:/Users/remyd/Downloads/MinGW avec Allegro 4/MinGW/bin/readelf.exe"
+			"value" : "C:/MinGW/bin/readelf.exe"
 		},
 		{
 			"name" : "CMAKE_ROOT",
@@ -871,7 +871,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "C:/Users/nguye/CLion 2024.2.2/bin/cmake/win/x64/share/cmake-3.29"
+			"value" : "C:/Program Files/JetBrains/CLion 2024.2.1/bin/cmake/win/x64/share/cmake-3.29"
 		},
 		{
 			"name" : "CMAKE_SHARED_LINKER_FLAGS",
@@ -1079,7 +1079,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "C:/Users/remyd/Downloads/MinGW avec Allegro 4/MinGW/bin/strip.exe"
+			"value" : "C:/MinGW/bin/strip.exe"
 		},
 		{
 			"name" : "CMAKE_TAPI",
@@ -1135,7 +1135,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Users/remyd/Allegro-Ing-1/cmake-build-debug"
+			"value" : "C:/Users/Alexis/Allegro-Ing-1/cmake-build-debug"
 		},
 		{
 			"name" : "allegro_projet_v1_IS_TOP_LEVEL",
@@ -1159,7 +1159,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Users/remyd/Allegro-Ing-1"
+			"value" : "C:/Users/Alexis/Allegro-Ing-1"
 		}
 	],
 	"kind" : "cache",
