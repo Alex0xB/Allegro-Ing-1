@@ -3,17 +3,25 @@
 #include <allegro.h>
 
 typedef struct {
-    float x, y;              // Position du personnage
-    float vy;                // Vitesse verticale (vol / chute)
-    float lift;              // Force vers le haut quand on appuie sur espace
+    float x, y;              // Position
+    float vy;                // Vitesse verticale
+    float lift;              // Force vers le haut (espace)
     int width, height;       // Dimensions du sprite
 
     int isAlive;             // 1 = vivant, 0 = mort
-    int spriteIndex;         // Frame actuelle de l’animation
-    int spriteCount;         // Nombre de sprites utilisés
-    int animationTimer;      // Pour gérer l’animation
+    int spriteIndex;         // Index de l’image actuelle
+    int spriteCount;         // Nombre total de sprites
+    int animationTimer;      // Compteur pour animation
+    int animationSpeed;      // Frames entre chaque image
 
-    BITMAP *sprites[10];     // Tableau simple de sprites (max 10)
-} Personnage;
+    BITMAP *sprites[10];     // Tableau de sprites (max 10)
+} t_personnage;
+
+// Fonctions
+void initialiserPersonnage(t_personnage *p, float x, float y, float lift);
+void chargerSprites(t_personnage *p, const char *cheminBase, int nombre);
+void animerPersonnage(t_personnage *p);
+void dessinerPersonnage(t_personnage *p, BITMAP *buffer);
+void libererSprites(t_personnage *p);
 
 #endif //PERSONNAGE_H
