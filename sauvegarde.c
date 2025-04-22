@@ -75,5 +75,3 @@ bool verification_nom(char nom[100]) {
     }
     return true;
 }
-
-//icicicicciicicci
