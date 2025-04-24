@@ -6,5 +6,7 @@ set(CMAKE_C_STANDARD 11)
 add_executable(allegro_projet_v1 main.c
         sauvegarde.c
         sauvegarde.h
-        personnage.c)
+        personnage.c
+        menu.c
+        menu.h)
 target_link_libraries(allegro_projet_v1 -lmingw32 -lalleg44)

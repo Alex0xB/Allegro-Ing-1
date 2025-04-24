@@ -2,7 +2,8 @@
 #include <allegro.h>
 #include "sauvegarde.h"
 #include "personnage.h"
-
+#define SCREEN_W 1920
+#define SCREEN_H 1080
 
 t_personnage perso;
 
@@ -17,7 +18,7 @@ void initialisation_allegro() {
     //sélection du mode graphique
     // avec choix d'un driver+mode+résolution de l'écran
     /// si échec, le programme s'arrête
-    if(set_gfx_mode(GFX_AUTODETECT_WINDOWED,800,600,0,0)!=0)
+    if(set_gfx_mode(GFX_AUTODETECT_FULLSCREEN,SCREEN_W,SCREEN_H,0,0)!=0)
     {
         allegro_message("probleme mode graphique");
         allegro_exit();
