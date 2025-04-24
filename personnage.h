@@ -19,9 +19,8 @@ typedef struct {
 
 // Fonctions
 void initialiserPersonnage(t_personnage *p, float x, float y, float lift);
-void chargerSprites(t_personnage *p, const char *cheminBase, int nombre);
+void chargerSprites(t_personnage *p);
 void animerPersonnage(t_personnage *p);
 void dessinerPersonnage(t_personnage *p, BITMAP *buffer);
 void libererSprites(t_personnage *p);
-
 #endif //PERSONNAGE_H

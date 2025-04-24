@@ -16,20 +16,24 @@ void initialiserPersonnage(t_personnage *p, float x, float y, float lift) {
     p->animationSpeed = 5; // 5 frames entre chaque sprite
 }
 
-void chargerSprites(t_personnage *p, int nombre) {
-    p->spriteCount = nombre;
+void chargerSprites(t_personnage *p) {
+    p->spriteCount = 4;
+    const char *nomsFichiers[4] = {
+        "spritevol1.bmp",
+        "spritevol2.bmp",
+        "spritevol3.bmp",
+        "spritevol4.bmp"
+    };
 
-    for (int i = 0; i < nombre; i++) {
-        char nomFichier[100];
-        sprintf(nomFichier, "spritevol%d.bmp", i);
-        p->sprites[i] = load_bitmap(nomFichier, NULL);
-
+    for (int i = 0; i < p->spriteCount; i++) {
+        p->sprites[i] = load_bitmap(nomsFichiers[i], NULL);
         if (p->sprites[i] == NULL) {
-            allegro_message("Erreur de chargement du sprite : %s", nomFichier);
+            allegro_message("Erreur de chargement du sprite : %s", nomsFichiers[i]);
             exit(EXIT_FAILURE);
         }
     }
 
+    // On suppose que tous les sprites ont la même taille
     p->width = p->sprites[0]->w;
     p->height = p->sprites[0]->h;
 }
@@ -51,3 +55,4 @@ void libererSprites(t_personnage *p) {
         destroy_bitmap(p->sprites[i]);
     }
 }
+
