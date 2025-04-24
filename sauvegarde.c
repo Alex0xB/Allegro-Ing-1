@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "sauvegarde.h"
+#include "personnage.h"
 #include <stdbool.h>
 #include <string.h>
 
