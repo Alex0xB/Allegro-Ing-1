@@ -1,6 +1,11 @@
 #include <stdio.h>
 #include <allegro.h>
 #include "sauvegarde.h"
+#include "personnage.h"
+
+
+t_personnage perso;
+
 
 void initialisation_allegro() {
     allegro_init(); // appel obligatoire (var.globales, recup. infos syst me ...)
@@ -20,10 +25,37 @@ void initialisation_allegro() {
     }
 }
 
-int main(){
-    initialisation_allegro();
-    printf("Coucou\n");
-    allegro_exit();
+int main() {
+    initialisation_allegro();  // ← Ici !
+
+    BITMAP *buffer = create_bitmap(SCREEN_W, SCREEN_H);
+    if (exists("spritevol1.bmp")) {
+        allegro_message("Le fichier spritevol1.bmp est bien trouvé !");
+    } else {
+        allegro_message("Fichier introuvable : spritevol1.bmp");
+    }
+
+    initialiserPersonnage(&perso, 100, 300, 0.6);
+
+    chargerSprites(&perso);
+
+    while (!key[KEY_ESC]) {
+        if (key[KEY_SPACE]) {
+            perso.vy -= perso.lift;
+        }
+        perso.vy += 0.3;
+        perso.y += perso.vy;
+
+        animerPersonnage(&perso);
+
+        clear(buffer);
+        dessinerPersonnage(&perso, buffer);
+        blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+        rest(20);
+    }
+
+    libererSprites(&perso);
+    destroy_bitmap(buffer);
     return 0;
 }END_OF_MAIN();
 //oueoeue
