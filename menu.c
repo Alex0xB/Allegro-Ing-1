@@ -6,22 +6,18 @@
 #define SCREEN_W 1920
 #define SCREEN_H 1080
 
-BITMAP *buffer;
-BITMAP *background;
-SAMPLE *music;
-
 int music_volume = 128;
 int in_settings = 0;
 int game_started = 0;
 
-void draw_menu() {
+void draw_menu(BITMAP *buffer,BITMAP *background) {
     draw_sprite(buffer, background, 0, 0);
     rectfill(buffer, SCREEN_W / 2 - 100, SCREEN_H/ 2 - 50, SCREEN_W / 2 + 100, SCREEN_H / 2, makecol(0, 0, 0));
     textout_centre_ex(buffer, font, "Jouer", SCREEN_W / 2, SCREEN_H / 2 - 25, makecol(255, 255, 255), -1);
     rectfill(buffer, SCREEN_W / 2 - 100, SCREEN_H / 2 + 50, SCREEN_W / 2 + 100, SCREEN_H/ 2 + 100, makecol(0, 0, 0));
     textout_centre_ex(buffer, font, "Paramètres", SCREEN_W / 2, SCREEN_H / 2 + 75, makecol(255, 255, 255), -1);
 }
-void show_difficulty_menu() {
+void show_difficulty_menu(BITMAP *buffer,BITMAP *background) {
     draw_sprite(buffer, background, 0, 0);
     rectfill(buffer, SCREEN_W / 2-100, 250, SCREEN_W / 2 + 100, 300, makecol(0, 0, 0));
     textout_centre_ex(buffer, font, "Choisir le niveau", SCREEN_W/ 2, 275, makecol(255, 255, 255), -1);
@@ -34,7 +30,7 @@ void show_difficulty_menu() {
     rectfill(buffer, SCREEN_W / 2 - 100, 900, SCREEN_W / 2 + 100, 950, makecol(0, 0, 0));
     textout_centre_ex(buffer, font, "retour ", SCREEN_W / 2, 920, makecol(255, 255, 255), -1);
 }
-void draw_settings() {
+void draw_settings(BITMAP *buffer,BITMAP *background) {
     draw_sprite(buffer, background, 0, 0);
     rectfill(buffer, SCREEN_W / 2 - 100, SCREEN_H / 2 - 125, SCREEN_W / 2 + 100, SCREEN_H/ 2 - 75, makecol(0, 0, 0));
     textout_centre_ex(buffer, font, "Réglages du volume", SCREEN_W / 2, SCREEN_H / 2 - 100, makecol(255, 255, 255), -1);
@@ -49,18 +45,14 @@ void draw_settings() {
     rectfill(buffer, SCREEN_W / 2 - 100, SCREEN_H / 2 + 60, SCREEN_W / 2 + 100, SCREEN_H / 2 + 110, makecol(0, 0, 0));
     textout_centre_ex(buffer, font, "Retour", SCREEN_W / 2, SCREEN_H / 2 + 85, makecol(255, 255, 255), -1);
 }
-void menu() {
-    buffer = create_bitmap(SCREEN_W, SCREEN_H);
-    background = load_bitmap("fond_menu.bmp", NULL);
-    music = load_sample("musique_menu2.wav");
-
+void menu(BITMAP *buffer,BITMAP *background,SAMPLE *music) {
     if (!background ) {
         allegro_message("Erreur chargement fond!");
-        //return 1;
+         exit(1);
     }
     if (!music) {
         allegro_message("Erreur chargement musique!");
-        //return 1;
+        exit(1);
     }
     play_sample(music, music_volume, 128, 1000, 1);
 
@@ -68,11 +60,11 @@ void menu() {
         clear_bitmap(buffer);
         show_mouse(NULL);
         if (game_started) {
-            show_difficulty_menu();
+            show_difficulty_menu(buffer,background);
         } else if (in_settings) {
-            draw_settings();
+            draw_settings(buffer,background);
         } else {
-            draw_menu();
+            draw_menu(buffer,background);
         }
 
         if (mouse_b & 1) {
@@ -117,8 +109,4 @@ void menu() {
         show_mouse(buffer);
         blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
     }
-
-    destroy_bitmap(buffer);
-    destroy_bitmap(background);
-    destroy_sample(music);
 }
