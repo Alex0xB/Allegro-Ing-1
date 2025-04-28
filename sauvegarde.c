@@ -29,7 +29,10 @@ void sauvegarder(t_personnage* personnage) {
         fclose(pt);
     }
     else {
-        FILE* pt2 = fopen("%s.txt", personnage->nom, "w"); //Je cree un nouveau fichier
+        char nom_fichier_test[100];
+        strcmp(nom_fichier_test, personnage->nom);
+        strcat(nom_fichier_test, ".txt");
+        FILE* pt2 = fopen(nom_fichier_test, "w"); //Je cree un nouveau fichier
         if (pt2 == NULL) {
             printf("Erreur d'ouvrir le fichier\n");
         }

@@ -13,6 +13,9 @@ typedef struct {
     int spriteCount;         // Nombre total de sprites
     int animationTimer;      // Compteur pour animation
     int animationSpeed;      // Frames entre chaque image
+    char nom[100];
+    int nb_mort;
+    int nb_niveau;
 
     BITMAP *sprites[10];     // Tableau de sprites (max 10)
 } t_personnage;
