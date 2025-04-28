@@ -3,8 +3,8 @@
 #include <allegro.h>
 #include "menu.h"
 
-#define SCREEN_W 800
-#define SCREEN_H 600
+#define SCREEN_W 1920
+#define SCREEN_H 1080
 
 int music_volume = 128;
 int in_settings = 0;
