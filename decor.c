@@ -3,7 +3,7 @@
 
 static BITMAP *decor = NULL;
 
-#define FICHIER_DECOR "decor1toutnoir.bmp"
+#define FICHIER_DECOR "decor1.bmp"
 
 void charger_decor() {
     decor = load_bitmap(FICHIER_DECOR, NULL);
