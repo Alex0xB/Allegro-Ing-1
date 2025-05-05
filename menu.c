@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <allegro.h>
 #include "menu.h"
+#include "niveau1.h"
 
 #define SCREEN_W 1920
 #define SCREEN_H 1080
@@ -9,6 +10,10 @@
 int music_volume = 128;
 int in_settings = 0;
 int game_started = 0;
+int jeux1 = 0;
+int jeux2 = 0;
+int jeux3 = 0;
+
 
 void draw_menu(BITMAP *buffer,BITMAP *background) {
     draw_sprite(buffer, background, 0, 0);
@@ -59,49 +64,64 @@ void menu(BITMAP *buffer,BITMAP *background,SAMPLE *music) {
     while (!key[KEY_ESC]) {
         clear_bitmap(buffer);
         show_mouse(NULL);
+        //Dans cette partie on s'occupe uniquement d'afficher
         if (game_started) {
             show_difficulty_menu(buffer,background);
-        } else if (in_settings) {
+            if(jeux1) {
+                jouer_niveau1();
+                jeux1 = 0;
+            }
+            else if (jeux2) {
+                jeux2 = 0;
+            }
+            else if (jeux3) {
+                jeux3 = 0;
+            }
+        }
+        else if (in_settings) {
             draw_settings(buffer,background);
-        } else {
+        }
+        else {
             draw_menu(buffer,background);
         }
 
-        if (mouse_b & 1) {
-            if (!in_settings && !game_started) {
-                if (mouse_x > SCREEN_W / 2 - 100 && mouse_x < SCREEN_W / 2 + 100 && mouse_y > SCREEN_H / 2 - 50 && mouse_y < SCREEN_H/ 2) {
+        //Dans cette partie on s'occupe de la detection de la souris
+        if (mouse_b & 1) { //Detection clique gauche de la souris
+            if (!in_settings && !game_started) { //Menu de base
+                if (mouse_x > SCREEN_W / 2 - 100 && mouse_x < SCREEN_W / 2 + 100 && mouse_y > SCREEN_H / 2 - 50 && mouse_y < SCREEN_H/ 2) { //Bouton Jouer
                     game_started = 1;
                 }
-                if (mouse_x > SCREEN_W / 2 - 100 && mouse_x < SCREEN_W / 2 + 100 && mouse_y > SCREEN_H / 2 + 50 && mouse_y < SCREEN_H / 2 + 100) {
+                if (mouse_x > SCREEN_W / 2 - 100 && mouse_x < SCREEN_W / 2 + 100 && mouse_y > SCREEN_H / 2 + 50 && mouse_y < SCREEN_H / 2 + 100) { //Bouton Parametre
                     in_settings = 1;
                 }
-            } else if (in_settings) {
-                if (mouse_x > SCREEN_W / 2 - 100 && mouse_x < SCREEN_W / 2 + 100 && mouse_y > SCREEN_H / 2 + 60 && mouse_y < SCREEN_H / 2 + 110) {
+            }
+            else if (in_settings) { //Menu des parametres
+                if (mouse_x > SCREEN_W / 2 - 100 && mouse_x < SCREEN_W / 2 + 100 && mouse_y > SCREEN_H / 2 + 60 && mouse_y < SCREEN_H / 2 + 110) { //Bouton Retour
                     in_settings = 0;
                 }
-                if (mouse_x > SCREEN_W / 2 - 125 && mouse_x < SCREEN_W / 2 - 75 && mouse_y > SCREEN_H / 2 && mouse_y < SCREEN_H / 2 + 25) {
+                if (mouse_x > SCREEN_W / 2 - 125 && mouse_x < SCREEN_W / 2 - 75 && mouse_y > SCREEN_H / 2 && mouse_y < SCREEN_H / 2 + 25) { //Bouton pour retirer du volume
                     music_volume -= 10;
                     if (music_volume < 0) music_volume = 0;
                     adjust_sample(music, music_volume, 128, 1000, 1);
                 }
-                if (mouse_x > SCREEN_W / 2 + 75 && mouse_x < SCREEN_W / 2 + 125 && mouse_y > SCREEN_H / 2 && mouse_y < SCREEN_H / 2 + 25) {
+                if (mouse_x > SCREEN_W / 2 + 75 && mouse_x < SCREEN_W / 2 + 125 && mouse_y > SCREEN_H / 2 && mouse_y < SCREEN_H / 2 + 25) { //Bouton pour ajouter du volume
                     music_volume += 10;
                     if (music_volume > 255) music_volume = 255;
                     adjust_sample(music, music_volume, 128, 1000, 1);
                 }
             }
-            else if(game_started) {
-                if (mouse_x > SCREEN_W / 2 - 100 && mouse_x < SCREEN_W / 2 + 100 && mouse_y > 900 && mouse_y < 950) {
+            else if(game_started) { //Menu de jeu
+                if (mouse_x > SCREEN_W / 2 - 100 && mouse_x < SCREEN_W / 2 + 100 && mouse_y > 900 && mouse_y < 950) { //Retour
                     game_started = 0;
                 }
-                if (mouse_x > SCREEN_W / 2 - 100 && mouse_x < SCREEN_W / 2 + 100 && mouse_y > 500 && mouse_y < 550) {
-                    clear_to_color(buffer, makecol(0, 255, 0));
+                if (mouse_x > SCREEN_W / 2 - 100 && mouse_x < SCREEN_W / 2 + 100 && mouse_y > 500 && mouse_y < 550) { //Niveau 1
+                    jeux1 = 1;
                 }
-                if (mouse_x > SCREEN_W / 2 - 100 && mouse_x < SCREEN_W / 2 + 100 && mouse_y > 600 && mouse_y < 650) {
-                    clear_to_color(buffer, makecol(0, 0, 255));
+                if (mouse_x > SCREEN_W / 2 - 100 && mouse_x < SCREEN_W / 2 + 100 && mouse_y > 600 && mouse_y < 650) { //Niveau 2
+                    jeux2 = 1;
                 }
-                if (mouse_x > SCREEN_W / 2 - 100 && mouse_x < SCREEN_W / 2 + 100 && mouse_y > 700 && mouse_y < 750) {
-                    clear_to_color(buffer, makecol(255, 0, 0));
+                if (mouse_x > SCREEN_W / 2 - 100 && mouse_x < SCREEN_W / 2 + 100 && mouse_y > 700 && mouse_y < 750) { //Niveau 3
+                    jeux3= 1;
                 }
             }
             rest(100);

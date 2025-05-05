@@ -1,7 +1,6 @@
 #ifndef DECOR_H
 #define DECOR_H
 
-#include <allegro.h>
 
 void charger_decor();
 

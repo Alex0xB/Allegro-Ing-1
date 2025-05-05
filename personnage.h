@@ -4,7 +4,7 @@
 
 typedef struct {
     float x, y;              // Position
-    float vy;                // Vitesse verticale
+    float vx,vy;                // Vitesse verticale
     float lift;              // Force vers le haut (espace)
     int width, height;       // Dimensions du sprite
 

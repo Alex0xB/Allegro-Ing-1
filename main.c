@@ -6,9 +6,6 @@
 #define SCREEN_W 1920
 #define SCREEN_H 1080
 
-t_personnage perso;
-
-
 void initialisation_allegro() {
     allegro_init(); // appel obligatoire (var.globales, recup. infos syst me ...)
     install_keyboard(); //pour utiliser le clavier
@@ -27,17 +24,22 @@ void initialisation_allegro() {
 }
 
 int main() {
-    initialisation_allegro();  // ← Ici !
+    initialisation_allegro();
     BITMAP *buffer = create_bitmap(SCREEN_W, SCREEN_H);
     BITMAP *background = load_bitmap("fond_menu.bmp", NULL);
     SAMPLE *music = load_sample("musique_menu2.wav");
+
     menu(buffer,background,music);
+
+    destroy_bitmap(buffer);
+    destroy_bitmap(background);
+    destroy_sample(music);
+    /**
     if (exists("spritevol1.bmp")) {
         allegro_message("Le fichier spritevol1.bmp est bien trouvé !");
     } else {
         allegro_message("Fichier introuvable : spritevol1.bmp");
     }
-
     initialiserPersonnage(&perso, 100, 300, 0.6);
 
     chargerSprites(&perso);
@@ -60,6 +62,6 @@ int main() {
     destroy_bitmap(buffer);
     destroy_bitmap(background);
     destroy_sample(music);
+    **/
     return 0;
 }END_OF_MAIN();
-//oueoeueoe

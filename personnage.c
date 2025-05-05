@@ -6,6 +6,7 @@
 void initialiserPersonnage(t_personnage *p, float x, float y, float lift) {
     p->x = x;
     p->y = y;
+    p->vx = 0;
     p->vy = 0;
     p->lift = lift;
     p->width = 0;
