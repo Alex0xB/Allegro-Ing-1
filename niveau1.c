@@ -37,9 +37,16 @@ void collision(t_personnage* perso) {
     **/
 }
 
+void verifier_fin_scrolling(bool* fin_scrol, BITMAP* niveau1_map, int screen_x) {
+    if(niveau1_map->w - screen_x + 10 <= SCREEN_W) { //permet de verifier que si on atteint la fin du bitmap il n'y ai plus de scrolling
+        *fin_scrol = true;
+    }
+}
+
 void jouer_niveau1() {
     //variable
     bool fin = false;
+    bool fin_scrol = false;;
     t_personnage perso;
     int screen_x= 0;
     int screen_y = 0;
@@ -78,8 +85,11 @@ void jouer_niveau1() {
         //4- Afficher le personnage
         dessinerPersonnage(&perso, niveau1_map);
 
+        //5- Fin scrolling
+        verifier_fin_scrolling(&fin_scrol, niveau1_map, screen_x);
+
         //On affiche notre map
-        blit(niveau1_map, buffer2,screen_x,screen_y,0,0,SCREEN_W,SCREEN_H);
+        blit(niveau1_map, buffer2,screen_x,screen_y,0,0,niveau1_map->w, niveau1_map->h );
         blit(buffer2, screen, 0,0,0,0, SCREEN_W, SCREEN_H);
 
         //Partie sur la detection au clavier
@@ -94,10 +104,10 @@ void jouer_niveau1() {
         if (mouse_b & 1) {
             //Verifier si on appui sur le bouton pour mettre en pause le jeux
         }
-        if(touche_appuyer == 1) { //Le scrolling ne se lance que si le joueur a appuyer sur la touche espace au debut
+        if(touche_appuyer == 1 && fin_scrol == false) { //Le scrolling ne se lance que si le joueur a appuyer sur la touche espace au debut
             screen_x += 5;
         }
-        rest(200);
+        rest(16);
     }
     libererSprites(&perso);
 }
