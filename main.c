@@ -26,7 +26,7 @@ void initialisation_allegro() {
 int main() {
     initialisation_allegro();
     BITMAP *buffer = create_bitmap(SCREEN_W, SCREEN_H);
-    BITMAP *background = load_bitmap("fond_menu.bmp", NULL);
+    BITMAP *background = load_bitmap("fond_menu1.bmp", NULL);
     SAMPLE *music = load_sample("musique_menu2.wav");
 
     menu(buffer,background,music);

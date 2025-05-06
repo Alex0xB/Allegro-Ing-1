@@ -14,7 +14,6 @@ int jeux1 = 0;
 int jeux2 = 0;
 int jeux3 = 0;
 
-
 void draw_menu(BITMAP *buffer,BITMAP *background) {
     draw_sprite(buffer, background, 0, 0);
     rectfill(buffer, SCREEN_W / 2 - 100, SCREEN_H/ 2 - 50, SCREEN_W / 2 + 100, SCREEN_H / 2, makecol(0, 0, 0));
@@ -51,6 +50,7 @@ void draw_settings(BITMAP *buffer,BITMAP *background) {
     textout_centre_ex(buffer, font, "Retour", SCREEN_W / 2, SCREEN_H / 2 + 85, makecol(255, 255, 255), -1);
 }
 void menu(BITMAP *buffer,BITMAP *background,SAMPLE *music) {
+    BITMAP *background2 = load_bitmap("fond_menu2.bmp", NULL);
     if (!background ) {
         allegro_message("Erreur chargement fond!");
          exit(1);
@@ -66,7 +66,7 @@ void menu(BITMAP *buffer,BITMAP *background,SAMPLE *music) {
         show_mouse(NULL);
         //Dans cette partie on s'occupe uniquement d'afficher
         if (game_started) {
-            show_difficulty_menu(buffer,background);
+            show_difficulty_menu(buffer,background2);
             if(jeux1) {
                 jouer_niveau1();
                 jeux1 = 0;
