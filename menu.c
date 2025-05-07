@@ -15,14 +15,14 @@ int jeux2 = 0;
 int jeux3 = 0;
 
 void draw_menu(BITMAP *buffer,BITMAP *background) {
-    draw_sprite(buffer, background, 0, 0);
+    blit(background, buffer, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
     rectfill(buffer, SCREEN_W / 2 - 100, SCREEN_H/ 2 - 50, SCREEN_W / 2 + 100, SCREEN_H / 2, makecol(0, 0, 0));
     textout_centre_ex(buffer, font, "Jouer", SCREEN_W / 2, SCREEN_H / 2 - 25, makecol(255, 255, 255), -1);
     rectfill(buffer, SCREEN_W / 2 - 100, SCREEN_H / 2 + 50, SCREEN_W / 2 + 100, SCREEN_H/ 2 + 100, makecol(0, 0, 0));
     textout_centre_ex(buffer, font, "Paramètres", SCREEN_W / 2, SCREEN_H / 2 + 75, makecol(255, 255, 255), -1);
 }
 void show_difficulty_menu(BITMAP *buffer,BITMAP *background) {
-    draw_sprite(buffer, background, 0, 0);
+    blit(background, buffer, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
     rectfill(buffer, SCREEN_W / 2-100, 250, SCREEN_W / 2 + 100, 300, makecol(0, 0, 0));
     textout_centre_ex(buffer, font, "Choisir le niveau", SCREEN_W/ 2, 275, makecol(255, 255, 255), -1);
     rectfill(buffer, SCREEN_W / 2 - 100, 500, SCREEN_W / 2 + 100, 550, makecol(0, 0, 0));
@@ -35,7 +35,7 @@ void show_difficulty_menu(BITMAP *buffer,BITMAP *background) {
     textout_centre_ex(buffer, font, "retour ", SCREEN_W / 2, 920, makecol(255, 255, 255), -1);
 }
 void draw_settings(BITMAP *buffer,BITMAP *background) {
-    draw_sprite(buffer, background, 0, 0);
+    blit(background, buffer, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
     rectfill(buffer, SCREEN_W / 2 - 100, SCREEN_H / 2 - 125, SCREEN_W / 2 + 100, SCREEN_H/ 2 - 75, makecol(0, 0, 0));
     textout_centre_ex(buffer, font, "Réglages du volume", SCREEN_W / 2, SCREEN_H / 2 - 100, makecol(255, 255, 255), -1);
     char volume_text[20];

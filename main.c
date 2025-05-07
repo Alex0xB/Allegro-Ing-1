@@ -28,6 +28,7 @@ int main() {
     BITMAP *buffer = create_bitmap(SCREEN_W, SCREEN_H);
     BITMAP *background = load_bitmap("fond_menu1.bmp", NULL);
     SAMPLE *music = load_sample("musique_menu2.wav");
+    //FONT *my_font = load_ttf_font("arial.ttf", 32, 0);
 
     menu(buffer,background,music);
 

@@ -84,14 +84,14 @@ void jouer_niveau1() {
 
         //4- Afficher le personnage
         dessinerPersonnage(&perso, niveau1_map);
-
+        clear_bitmap(niveau1_map);
+        blit(niveau1_map, buffer2,screen_x,screen_y,0,0,niveau1_map->w, niveau1_map->h );
+        blit(buffer2, screen, 0,0,0,0, SCREEN_W, SCREEN_H);
         //5- Fin scrolling
         verifier_fin_scrolling(&fin_scrol, niveau1_map, screen_x);
 
         //On affiche notre map
-        blit(niveau1_map, buffer2,screen_x,screen_y,0,0,niveau1_map->w, niveau1_map->h );
-        blit(buffer2, screen, 0,0,0,0, SCREEN_W, SCREEN_H);
-        clear_to_color(screen, makecol(0, 0, 0));
+
 
         //Partie sur la detection au clavier
         if(key[KEY_SPACE]) {
