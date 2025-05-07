@@ -3,7 +3,7 @@
 #include <allegro.h>
 
 typedef struct {
-    float x, y;              // Position
+    int x, y;              // Position
     float vx,vy;                // Vitesse verticale
     float lift;              // Force vers le haut (espace)
     int width, height;       // Dimensions du sprite
