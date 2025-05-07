@@ -11,7 +11,7 @@ void chargement_joueur() {
 
 }
 
-void collision(t_personnage* perso) {
+void collision(t_personnage* perso, bool* fin, BITMAP* niveau1_map, int screen_x) {
     /**
     if() { //Plafond
 
@@ -68,36 +68,43 @@ void jouer_niveau1() {
 
         //On fait bouger notre personnage
         if(touche_appuyer == 1) {
-            //1- Deplacer notre personnage
-            perso.vx = 1; //Le personage continue d'avancer meme quand il n'a plus de vitesse
-            perso.vy = 10; //Le personnage chute quand on n'appui pas sur la touche espace
 
-            perso.x += perso.vx;
-            perso.y += perso.vy;
+            if(!key[KEY_SPACE]) {
+                //1- Deplacer notre personnage
+                perso.vx = 3; //Le personage continue d'avancer meme quand il n'a plus de vitesse    Il n'y a ps besoin de vitesse car le personnage est directement colle a l'image
+                perso.vy = 10; //Le personnage chute quand on n'appui pas sur la touche espace
 
-            //2- Verifier la collision
-            collision(&perso);
+                //2- On fait bouger le perso
+                perso.x += perso.vx;
+                perso.y += perso.vy;
+            }
 
-            //3- Animer le personnage
+            //3- Verifier la collision
+            collision(&perso, &fin, niveau1_map, screen_x);
+
+            //4- Animer le personnage
             animerPersonnage(&perso);
         }
 
-        //4- Afficher le personnage
-        dessinerPersonnage(&perso, niveau1_map);
-        clear_bitmap(niveau1_map);
-        blit(niveau1_map, buffer2,screen_x,screen_y,0,0,niveau1_map->w, niveau1_map->h );
-        blit(buffer2, screen, 0,0,0,0, SCREEN_W, SCREEN_H);
         //5- Fin scrolling
         verifier_fin_scrolling(&fin_scrol, niveau1_map, screen_x);
 
-        //On affiche notre map
+        //6- Copier la portion visible du décor dans le buffer
+        blit(niveau1_map, buffer2, screen_x, screen_y, 0, 0, SCREEN_W, SCREEN_H);
 
+        //7- Dessiner le personnage dans le buffer (par-dessus le décor)
+        draw_sprite(buffer2, perso.sprites[perso.spriteIndex], 100, perso.y);
+
+        //8- Copier le buffer vers l'écran
+        blit(buffer2, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
 
         //Partie sur la detection au clavier
         if(key[KEY_SPACE]) {
             touche_appuyer = 1;
-            perso.vx = 7;
-            perso.vy = 15;
+            perso.vx = 3; //Il n'y a ps besoin de vitesse car le personnage est directement colle a l'image
+            perso.vy = 10;
+
+            //2- On fait bouger le perso
             perso.x += perso.vx;
             perso.y -= perso.vy;
         }
@@ -106,7 +113,7 @@ void jouer_niveau1() {
             //Verifier si on appui sur le bouton pour mettre en pause le jeux
         }
         if(touche_appuyer == 1 && fin_scrol == false) { //Le scrolling ne se lance que si le joueur a appuyer sur la touche espace au debut
-            screen_x += 5;
+            screen_x += 2;
         }
         rest(16);
     }
