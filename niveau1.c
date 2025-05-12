@@ -11,62 +11,38 @@ void chargement_joueur() {
 
 }
 
-void collision(t_personnage* perso, bool* fin, BITMAP* niveau1_map, int screen_x) {
-    // Obtenir les coordonnées des coins du personnage (haut, bas, gauche, droite)
-    int x_gauche = perso->x;
-    int x_droite = perso->x + perso->width; // Largeur du personnage
-    int y_haut = perso->y;
-    int y_bas = perso->y + perso->height;  // Hauteur du personnage
+void collision(BITMAP* map,t_personnage* perso,int screen_x) {
+    int noir = makecol(0, 0, 0); // couleur noire
 
-    // Variables pour vérifier les conditions de collision sur chaque côté du personnage
-    bool collision_haut = false;
-    bool collision_bas = false;
+    // Position du personnage dans la MAP complète (pas l'écran)
+    int x_map = perso->x + screen_x;
+    int y_map = perso->y;
 
-    // Vérification de la collision avec l'image (niveau1_map)
-    for (int y = y_haut; y < y_bas; y++) {
-        for (int x = x_gauche; x < x_droite; x++) {
-            // Vérifier la couleur des pixels
-            int pixel = getpixel(niveau1_map, x, y);  // Fonction qui récupère la couleur d'un pixel
-            int r = (pixel >> 16) & 0xFF;
-            int g = (pixel >> 8) & 0xFF;
-            int b = pixel & 0xFF;
+    // Taille du sprite
+    int w = perso->width;
+    int h = perso->height;
 
-            // Condition 1 : Si on touche la couleur RGB(0, 0, 0) (obstacle)
-            if (r == 0 && g == 0 && b == 0) {
-                // Si la tête du personnage touche l'obstacle (partie supérieure)
-                if (y == y_haut) {
-                    collision_haut = true;
-                }
-                // Si le bas du personnage touche l'obstacle (partie inférieure)
-                if (y == y_bas - 1) {
-                    collision_bas = true;
-                }
-                // Si on touche un obstacle sur les bords, on arrête le mouvement
-                perso->vx = 0;
-                perso->vy = 0;  // Le personnage ne peut plus se déplacer
-            }
+    // On vérifie les 4 coins du sprite
+    int points[4][2] = {
+        {x_map, y_map},                   // Haut gauche
+        {x_map + w - 1, y_map},           // Haut droit
+        {x_map, y_map + h - 1},           // Bas gauche
+        {x_map + w - 1, y_map + h - 1}    // Bas droit
+    };
 
-            // Condition 2 : Si on touche la couleur RGB(1, 1, 1) (zone mortelle)
-            if (r == 1 && g == 1 && b == 1) {
-                fin = true;  // Le personnage meurt
-            }
+    for (int i = 0; i < 4; i++) {
+        int px = points[i][0];
+        int py = points[i][1];
 
-            // Condition 4 : Si on touche la couleur RGB(255, 255, 255) (fin du niveau)
-            if (r == 255 && g == 255 && b == 255) {
-                fin = true;  // Le niveau est terminé
+        if (px >= 0 && px < map->w && py >= 0 && py < map->h) {
+            int color = getpixel(map, px, py);
+            if (color == noir) {
+                // Collision détectée
+                perso->vx = 0;  // Bloque le mouvement horizontal
+                perso->vy = 0;
+                return;
             }
         }
-    }
-
-    // Condition 3 : Si le personnage sort du décor (gauche)
-    if (perso->x < screen_x) {
-        fin = true;  // Le personnage meurt s'il sort à gauche
-    }
-
-    // Si la tête ou le bas du personnage touche un obstacle, il s'arrête
-    if (collision_haut || collision_bas) {
-        perso->vx = 0;
-        perso->vy = 0;  // Empêche toute avancée ou chute supplémentaire
     }
 }
 
@@ -103,18 +79,15 @@ void jouer_niveau1() {
 
         //On fait bouger notre personnage
         if(touche_appuyer == 1) {
-
             if(!key[KEY_SPACE]) {
                 //1- Deplacer notre personnage
                 perso.vy = 10; //Le personnage chute quand on n'appui pas sur la touche espace
-
+                perso.vx = 0;
                 //2- On fait bouger le perso
                 perso.x += perso.vx;
                 perso.y += perso.vy;
+                collision(niveau1_map,&perso,screen_x);
             }
-
-            //3- Verifier la collision
-            collision(&perso, &fin, niveau1_map, screen_x);
 
             //4- Animer le personnage
             animerPersonnage(&perso);
@@ -125,9 +98,9 @@ void jouer_niveau1() {
 
         //6- Copier la portion visible du décor dans le buffer
         blit(niveau1_map, buffer2, screen_x, screen_y, 0, 0, SCREEN_W, SCREEN_H);
-
+        animerPersonnage(&perso);
         //7- Dessiner le personnage dans le buffer (par-dessus le décor)
-        draw_sprite(buffer2, perso.sprites[perso.spriteIndex], perso.x, perso.y);
+        dessinerPersonnage(&perso,buffer2);
 
         //8- Copier le buffer vers l'écran
         blit(buffer2, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
@@ -136,17 +109,17 @@ void jouer_niveau1() {
         if(key[KEY_SPACE]) {
             touche_appuyer = 1;
             perso.vy = 10;
-
-            //2- On fait bouger le perso
+            perso.vx = 0;
             perso.x += perso.vx;
             perso.y -= perso.vy;
+            collision(niveau1_map,&perso,screen_x);
         }
         //Partie sur la detection a la souris
         if (mouse_b & 1) {
             //Verifier si on appui sur le bouton pour mettre en pause le jeux
         }
         if(touche_appuyer == 1 && fin_scrol == false) { //Le scrolling ne se lance que si le joueur a appuyer sur la touche espace au debut
-            screen_x += 50;
+            screen_x += 5;
         }
         rest(16);
     }
