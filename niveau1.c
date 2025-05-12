@@ -76,17 +76,12 @@ void jouer_niveau1() {
 
     //Debut du jeux
     while(fin == false) {
-
         //On fait bouger notre personnage
         if(touche_appuyer == 1) {
             if(!key[KEY_SPACE]) {
                 //1- Deplacer notre personnage
                 perso.vy = 10; //Le personnage chute quand on n'appui pas sur la touche espace
                 perso.vx = 0;
-                //2- On fait bouger le perso
-                perso.x += perso.vx;
-                perso.y += perso.vy;
-                collision(niveau1_map,&perso,screen_x);
             }
 
             //4- Animer le personnage
@@ -108,12 +103,13 @@ void jouer_niveau1() {
         //Partie sur la detection au clavier
         if(key[KEY_SPACE]) {
             touche_appuyer = 1;
-            perso.vy = 10;
+            perso.vy = -10;
             perso.vx = 0;
-            perso.x += perso.vx;
-            perso.y -= perso.vy;
-            collision(niveau1_map,&perso,screen_x);
         }
+        collision(niveau1_map,&perso,screen_x);
+
+        perso.x += perso.vx;
+        perso.y += perso.vy;
         //Partie sur la detection a la souris
         if (mouse_b & 1) {
             //Verifier si on appui sur le bouton pour mettre en pause le jeux

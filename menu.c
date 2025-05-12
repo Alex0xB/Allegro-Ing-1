@@ -130,3 +130,9 @@ void menu(BITMAP *buffer,BITMAP *background,SAMPLE *music) {
         blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
     }
 }
+
+void ecran_game_over(BITMAP* buffer) {
+    BITMAP *background = load_bitmap("game_over", NULL);
+    blit(background, buffer, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+    blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+}
