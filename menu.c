@@ -50,7 +50,7 @@ void draw_settings(BITMAP *buffer,BITMAP *background) {
     textout_centre_ex(buffer, font, "Retour", SCREEN_W / 2, SCREEN_H / 2 + 85, makecol(255, 255, 255), -1);
 }
 void menu(BITMAP *buffer,BITMAP *background,SAMPLE *music) {
-    BITMAP *background2 = load_bitmap("fond_menu.bmp", NULL);
+    BITMAP *background2 = load_bitmap("fond_menu2.bmp", NULL);
     if (!background ) {
         allegro_message("Erreur chargement fond!");
          exit(1);
