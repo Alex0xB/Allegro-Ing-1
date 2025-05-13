@@ -21,6 +21,9 @@ typedef struct {
 } t_personnage;
 
 // Fonctions
+void chargerObjetsSpeciaux();
+void afficherObjetsSpeciaux(BITMAP *buffer);
+void libererObjetsSpeciaux();
 void initialiserPersonnage(t_personnage *p, float x, float y, float lift);
 void chargerSprites(t_personnage *p);
 void animerPersonnage(t_personnage *p);

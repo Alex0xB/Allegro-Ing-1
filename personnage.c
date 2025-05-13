@@ -3,6 +3,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+BITMAP *objetsSpeciaux[4];
+
+
 void initialiserPersonnage(t_personnage *p, float x, float y, float lift) {
     p->x = x;
     p->y = y;
@@ -54,6 +57,39 @@ void dessinerPersonnage(t_personnage *p, BITMAP *buffer) {
 void libererSprites(t_personnage *p) {
     for (int i = 0; i < p->spriteCount; i++) {
         destroy_bitmap(p->sprites[i]);
+    }
+}
+
+BITMAP *objetsSpeciaux[4];
+
+void chargerObjetsSpeciaux() {
+    const char *nomsObjets[4] = {
+        "sprite clonage magenta .bmp",
+        "sprite gravite bmp.bmp",
+        "sprite ralenti bmp.bmp",
+        "sprite accel bmp.bmp"
+    };
+
+    for (int i = 0; i < 4; i++) {
+        objetsSpeciaux[i] = load_bitmap(nomsObjets[i], NULL);
+        if (objetsSpeciaux[i] == NULL) {
+            allegro_message("Erreur de chargement du sprite : %s", nomsObjets[i]);
+            exit(EXIT_FAILURE);
+        }
+    }
+}
+void afficherObjetsSpeciaux(BITMAP *buffer) {
+    int x = 50;
+    int y = 500;
+
+    for (int i = 0; i < 4; i++) {
+        draw_sprite(buffer, objetsSpeciaux[i], x + i * 80, y);
+    }
+}
+
+void libererObjetsSpeciaux() {
+    for (int i = 0; i < 4; i++) {
+        destroy_bitmap(objetsSpeciaux[i]);
     }
 }
 
