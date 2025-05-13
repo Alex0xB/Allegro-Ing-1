@@ -11,113 +11,147 @@ void chargement_joueur() {
 
 }
 
-void collision(BITMAP* map,t_personnage* perso,int screen_x) {
-    int noir = makecol(0, 0, 0); // couleur noire
-
-    // Position du personnage dans la MAP complète (pas l'écran)
+void gerer_collisions(BITMAP* map, t_personnage* perso, int screen_x,
+                      bool* bloque_droite_ou_bas) {
+    int noir = makecol(0, 0, 0);
     int x_map = perso->x + screen_x;
     int y_map = perso->y;
-
-    // Taille du sprite
     int w = perso->width;
     int h = perso->height;
 
-    // On vérifie les 4 coins du sprite
-    int points[4][2] = {
-        {x_map, y_map},                   // Haut gauche
-        {x_map + w - 1, y_map},           // Haut droit
-        {x_map, y_map + h - 1},           // Bas gauche
-        {x_map + w - 1, y_map + h - 1}    // Bas droit
-    };
+    *bloque_droite_ou_bas = false;
 
-    for (int i = 0; i < 4; i++) {
-        int px = points[i][0];
-        int py = points[i][1];
-
-        if (px >= 0 && px < map->w && py >= 0 && py < map->h) {
-            int color = getpixel(map, px, py);
-            if (color == noir) {
-                // Collision détectée
-                perso->vx = 0;  // Bloque le mouvement horizontal
+    // Collision en haut (bloque uniquement la montée)
+    if (perso->vy < 0) {
+        for (int i = 0; i < w; i++) {
+            if (getpixel(map, x_map + i, y_map) == noir) {
                 perso->vy = 0;
-                return;
+                break;
             }
         }
     }
+
+    // Collision en bas (bloque uniquement la descente)
+    if (perso->vy > 0) {
+        for (int i = 0; i < w; i++) {
+            if (getpixel(map, x_map + i, y_map + h - 1) == noir) {
+                perso->vy = 0;
+                *bloque_droite_ou_bas = true;
+                break;
+            }
+        }
+    }
+
+    // Collision à droite (bloque tout)
+    for (int j = 0; j < h; j++) {
+        if (getpixel(map, x_map + w - 1, y_map + j) == noir) {
+            perso->vx = 0;
+            perso->vy = 0;
+            *bloque_droite_ou_bas = true;
+            break;
+        }
+    }
 }
+
+
+
+
+
 
 
 void verifier_fin_scrolling(bool* fin_scrol, BITMAP* niveau1_map, int screen_x, t_personnage* perso) {
     if(niveau1_map->w - screen_x + 10 <= SCREEN_W) { //permet de verifier que si on atteint la fin du bitmap il n'y ai plus de scrolling
         *fin_scrol = true;
-        perso->x += 5;
     }
 }
 
 void jouer_niveau1() {
-    //variable
     bool fin = false;
-    bool fin_scrol = false;;
+    bool fin_scrol = false;
     t_personnage perso;
-    int screen_x= 0;
+    int screen_x = 0;
     int screen_y = 0;
-    int touche_appuyer = 0; //permet de s'assurer que le jeu se lance lorsque l'utilisateur appui sur la touche espace
+    int touche_appuyer = 0;
+    bool bloque_droite_ou_bas = false;
 
-    //Partie sur le chargement du joueur
+
+    // Chargement joueur
     chargement_joueur();
 
-    //Partie sur l'initialisation du personnage
-    initialiserPersonnage(&perso, 100, 300, 0.6);
+    // Initialisation personnage
+    initialiserPersonnage(&perso, 100, 300, 0.6);  // Position fixe x = 100
     chargerSprites(&perso);
 
-    //Chargement de la map
+    // Chargement de la map et du buffer
     BITMAP* niveau1_map = load_bitmap("decor1.bmp", NULL);
     BITMAP* buffer2 = create_bitmap(SCREEN_W, SCREEN_H);
 
-    //Debut du jeux
-    while(fin == false) {
-        //On fait bouger notre personnage
-        if(touche_appuyer == 1) {
-            if(!key[KEY_SPACE]) {
-                //1- Deplacer notre personnage
-                perso.vy = 10; //Le personnage chute quand on n'appui pas sur la touche espace
+    // Boucle de jeu
+    while (!fin) {
+        // --- Début du jeu après appui sur espace ---
+        if (touche_appuyer == 1) {
+            if (!key[KEY_SPACE]) {
+                // Gravité naturelle
+                perso.vy = 10;
                 perso.vx = 0;
             }
 
-            //4- Animer le personnage
+            // Animation du personnage
             animerPersonnage(&perso);
         }
 
-        //5- Fin scrolling
+        // Vérifie la fin du scrolling
         verifier_fin_scrolling(&fin_scrol, niveau1_map, screen_x, &perso);
 
-        //6- Copier la portion visible du décor dans le buffer
+        // Dessin du décor
         blit(niveau1_map, buffer2, screen_x, screen_y, 0, 0, SCREEN_W, SCREEN_H);
-        animerPersonnage(&perso);
-        //7- Dessiner le personnage dans le buffer (par-dessus le décor)
-        dessinerPersonnage(&perso,buffer2);
 
-        //8- Copier le buffer vers l'écran
+        // Dessin du personnage
+        dessinerPersonnage(&perso, buffer2);
+
+        // Affichage du buffer à l’écran
         blit(buffer2, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
 
-        //Partie sur la detection au clavier
-        if(key[KEY_SPACE]) {
+        // Gestion clavier
+        if (key[KEY_SPACE]) {
             touche_appuyer = 1;
             perso.vy = -10;
             perso.vx = 0;
         }
-        collision(niveau1_map,&perso,screen_x);
 
+        // Gestion du scrolling : il avance TOUJOURS
+        if (touche_appuyer == 1 && !fin_scrol) {
+            screen_x += 5;
+
+            if (bloque_droite_ou_bas) {
+                perso.vx = -5; // le scrolling avance, on compense
+            } else {
+                perso.vx = 0;  // pas de compensation
+            }
+        }
+
+        if (fin_scrol) {
+            perso.vx = 5; // ou 0 si tu veux qu'il reste immobile
+        }
+
+        // Gestion des collisions
+        gerer_collisions(niveau1_map, &perso, screen_x, &bloque_droite_ou_bas);
+
+        // Mise à jour de la position
         perso.x += perso.vx;
         perso.y += perso.vy;
-        //Partie sur la detection a la souris
+
+        // Gestion souris (pause future)
         if (mouse_b & 1) {
-            //Verifier si on appui sur le bouton pour mettre en pause le jeux
+            // Pause ou autre fonctionnalité
         }
-        if(touche_appuyer == 1 && fin_scrol == false) { //Le scrolling ne se lance que si le joueur a appuyer sur la touche espace au debut
-            screen_x += 5;
-        }
+
+        // Cadence
         rest(16);
     }
+
+    // Nettoyage
     libererSprites(&perso);
+    destroy_bitmap(niveau1_map);
+    destroy_bitmap(buffer2);
 }
