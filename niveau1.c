@@ -86,6 +86,10 @@ void jouer_niveau1() {
     BITMAP* niveau1_map = load_bitmap("decor1.bmp", NULL);
     BITMAP* buffer2 = create_bitmap(SCREEN_W, SCREEN_H);
 
+    //Objet speciaux
+    chargerObjetsSpeciaux();
+    afficherObjetsSpeciaux(niveau1_map);
+
     // Boucle de jeu
     while (!fin) {
         // --- Début du jeu après appui sur espace ---
@@ -152,6 +156,7 @@ void jouer_niveau1() {
 
     // Nettoyage
     libererSprites(&perso);
+    libererObjetsSpeciaux();
     destroy_bitmap(niveau1_map);
     destroy_bitmap(buffer2);
 }
