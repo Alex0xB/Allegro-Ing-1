@@ -1,14 +1,23 @@
- #include <allegro.h>
+#include <allegro.h>
 #include "decor.h"
 
 static BITMAP *decor = NULL;
 
-#define FICHIER_DECOR "decor1.bmp"
+void charger_decor(int numero) {
+    const char *fichier = NULL;
 
-void charger_decor() {
-    decor = load_bitmap(FICHIER_DECOR, NULL);
+    if (numero == 1) {
+        fichier = "images/decor1.bmp";
+    } else if (numero == 2) {
+        fichier = "images/decor2.bmp";
+    } else {
+        allegro_message("Numéro de décor invalide !");
+        exit(EXIT_FAILURE);
+    }
+
+    decor = load_bitmap(fichier, NULL);
     if (!decor) {
-        allegro_message("Erreur : impossible de charger le décor !");
+        allegro_message("Erreur : échec du chargement du décor !");
         exit(EXIT_FAILURE);
     }
 }
