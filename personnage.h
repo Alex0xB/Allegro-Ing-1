@@ -1,6 +1,7 @@
 #ifndef PERSONNAGE_H
 #define PERSONNAGE_H
 #include <allegro.h>
+#include <stdbool.h>
 
 typedef struct {
     int x, y;              // Position
@@ -8,7 +9,6 @@ typedef struct {
     float lift;              // Force vers le haut (espace)
     int width, height;       // Dimensions du sprite
 
-    int isAlive;             // 1 = vivant, 0 = mort
     int spriteIndex;         // Index de l’image actuelle
     int spriteCount;         // Nombre total de sprites
     int animationTimer;      // Compteur pour animation

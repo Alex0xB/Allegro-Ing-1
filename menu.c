@@ -14,7 +14,7 @@ int jeux1 = 0;
 int jeux2 = 0;
 int jeux3 = 0;
 
-void draw_menu(BITMAP *buffer,BITMAP *background) {
+void draw_menu(BITMAP *buffer,BITMAP *background,BITMAP* bouton_image) {
     blit(background, buffer, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
     rectfill(buffer, SCREEN_W / 2 - 100, SCREEN_H/ 2 - 50, SCREEN_W / 2 + 100, SCREEN_H / 2, makecol(0, 0, 0));
     textout_centre_ex(buffer, font, "Jouer", SCREEN_W / 2, SCREEN_H / 2 - 25, makecol(255, 255, 255), -1);
@@ -49,8 +49,13 @@ void draw_settings(BITMAP *buffer,BITMAP *background) {
     rectfill(buffer, SCREEN_W / 2 - 100, SCREEN_H / 2 + 60, SCREEN_W / 2 + 100, SCREEN_H / 2 + 110, makecol(0, 0, 0));
     textout_centre_ex(buffer, font, "Retour", SCREEN_W / 2, SCREEN_H / 2 + 85, makecol(255, 255, 255), -1);
 }
-void menu(BITMAP *buffer,BITMAP *background,SAMPLE *music) {
+void menu(BITMAP *buffer_menu,BITMAP *background,SAMPLE *music) {
     BITMAP *background2 = load_bitmap("fond_menu2.bmp", NULL);
+    BITMAP* bouton_image = load_bitmap("bouton.bmp", NULL);
+    if (!bouton_image) {
+        allegro_message("Erreur chargement bouton !");
+        exit(1);
+    }
     if (!background ) {
         allegro_message("Erreur chargement fond!");
          exit(1);
@@ -62,13 +67,14 @@ void menu(BITMAP *buffer,BITMAP *background,SAMPLE *music) {
     play_sample(music, music_volume, 128, 1000, 1);
 
     while (!key[KEY_ESC]) {
-        clear_bitmap(buffer);
+        clear_bitmap(buffer_menu);
         show_mouse(NULL);
         //Dans cette partie on s'occupe uniquement d'afficher
         if (game_started) {
-            show_difficulty_menu(buffer,background2);
+            show_difficulty_menu(buffer_menu,background2);
             if(jeux1) {
-                jouer_niveau1();
+                jouer_niveau1(buffer_menu);
+                //allegro_message("Fin de jouer_niveau1()");
                 jeux1 = 0;
             }
             else if (jeux2) {
@@ -79,10 +85,10 @@ void menu(BITMAP *buffer,BITMAP *background,SAMPLE *music) {
             }
         }
         else if (in_settings) {
-            draw_settings(buffer,background);
+            draw_settings(buffer_menu,background);
         }
         else {
-            draw_menu(buffer,background);
+            draw_menu(buffer_menu,background, bouton_image);
         }
 
         //Dans cette partie on s'occupe de la detection de la souris
@@ -126,34 +132,7 @@ void menu(BITMAP *buffer,BITMAP *background,SAMPLE *music) {
             }
             rest(100);
         }
-        show_mouse(buffer);
-        blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
-    }
-}
-
-void ecran_game_over(BITMAP* buffer) {
-    clear_bitmap(buffer);
-    show_mouse(NULL);
-    BITMAP* background = load_bitmap("game_over.bmp", NULL);
-    BITMAP* background2 = load_bitmap("fond_menu1.bmp", NULL);
-    SAMPLE *music = load_sample("musique_menu2.wav");
-    blit(background, buffer, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
-    while (!key[KEY_ESC]) {
-        rectfill(buffer, SCREEN_W / 2 - 100, 700, SCREEN_W / 2 + 100, 750, makecol(0, 0, 0));
-        textout_centre_ex(buffer, font, "REJOUER ", SCREEN_W / 2, 720, makecol(255, 255, 255), -1);
-        rectfill(buffer, SCREEN_W / 2 - 100, 900, SCREEN_W / 2 + 100, 950, makecol(0, 0, 0));
-        textout_centre_ex(buffer, font, "RETOUR ", SCREEN_W / 2, 920, makecol(255, 255, 255), -1);
-        if (mouse_b & 1) {
-            if (mouse_x > SCREEN_W / 2 - 100 && mouse_x < SCREEN_W / 2 + 100 && mouse_y > 700 && mouse_y < 750) {
-                game_started = 1;
-                menu(buffer,background2,music);
-            }
-            if (mouse_x > SCREEN_W / 2 - 100 && mouse_x < SCREEN_W / 2 + 100 && mouse_y > 900 && mouse_y < 950) {
-                menu(buffer,background2,music);
-            }
-
-        }
-        show_mouse(buffer);
-        blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+        show_mouse(buffer_menu);
+        blit(buffer_menu, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
     }
 }

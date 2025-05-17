@@ -4,6 +4,20 @@
 #include <stdbool.h>
 #include <string.h>
 
+void nettoyer_chaine(char* str) {
+    // Supprimer les espaces au début
+    while (*str == ' ' || *str == '\t' || *str == '\n') {
+        memmove(str, str + 1, strlen(str));
+    }
+
+    // Supprimer les espaces en fin
+    int len = strlen(str);
+    while (len > 0 && (str[len - 1] == ' ' || str[len - 1] == '\t' || str[len - 1] == '\n' || str[len - 1] == '\r')) {
+        str[len - 1] = '\0';
+        len--;
+    }
+}
+
 void sauvegarder(t_personnage* personnage) {
     char nom_txt[100];
     strcpy(nom_txt, personnage->nom);
@@ -64,42 +78,72 @@ t_personnage charger(bool *peux_jouer) {// On fait charger le joueur si il y a u
     char bufferSaisie[100] = "";
     int index = 0;
     int touche = 0;
+    int debut_affichage = 0; // index de début de la fenêtre visible
+    const int max_affiches = 8; // max de pseudos affichés à la fois
+    // Pseudos
+    int base_y = 270; //Pseudo position
+    int espace = 40;
     BITMAP* fond = load_bitmap("charger_menu.bmp", NULL);
     BITMAP* buffer = create_bitmap(SCREEN_W, SCREEN_H);
 
     while (*peux_jouer == false) {
         blit(fond, buffer, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
 
-        // --- Titre ---
-        draw_large_text(buffer, font, "SELECTION DE JOUEUR", SCREEN_W / 2, 140, makecol(255, 215, 0), 9);
+        // --- TITRE PRINCIPAL ---
+        draw_large_text(buffer, font, "SELECTION DE JOUEUR", SCREEN_W / 2, 100, makecol(255, 200, 0), 2.5);
 
-        // --- Liste des sauvegardes ---
-        draw_large_text(buffer, font, "Sauvegardes disponibles :", SCREEN_W / 2, 220, makecol(240, 240, 240), 5);
-        for (int i = 0; i < j; i++) {
-            textout_centre_ex(buffer, font, nom[i], SCREEN_W / 2, 250 + i * 30, makecol(255, 255, 255), -1);
+        // --- LISTE DES SAUVEGARDES ---
+        draw_large_text(buffer, font, "Sauvegardes disponibles :", SCREEN_W / 2, 200, makecol(255, 180, 0), 1.6);
+
+        // Affichage de la liste défilable
+
+        for (int i = 0; i < max_affiches && (debut_affichage + i) < j; i++) {
+            draw_large_text(
+                buffer,
+                font,
+                nom[debut_affichage + i],
+                SCREEN_W / 2,
+                base_y + i * espace,
+                makecol(255, 255, 255),
+                1.6
+            );
         }
 
-        // --- Champ de pseudo ---
-        textout_centre_ex(buffer, font, "Entrez votre pseudo :", SCREEN_W / 2, 380, makecol(255, 200, 0), -1);
 
-        int box_width = 400;
-        int box_height = 30;
+        // Affiche flèche haut si possible
+        if (debut_affichage > 0) {
+            textout_centre_ex(buffer, font, "^", SCREEN_W / 2, base_y - 30, makecol(200, 200, 200), -1);
+        }
+
+        // Affiche flèche bas si encore des noms à afficher
+        if (debut_affichage + max_affiches < j) {
+            textout_centre_ex(buffer, font, "v", SCREEN_W / 2, base_y + max_affiches * espace, makecol(200, 200, 200), -1);
+        }
+
+        // --- CHAMP DE PSEUDO ---
+        draw_large_text(buffer, font, "Entrez votre pseudo :", SCREEN_W / 2, 700, makecol(255, 190, 0), 1.6);
+
+        int box_width = 500;
+        int box_height = 45;
         int box_x = SCREEN_W / 2 - box_width / 2;
-        int box_y = 410;
+        int box_y = 750;
 
-        rect(buffer, box_x, box_y, box_x + box_width, box_y + box_height, makecol(255, 255, 255));
-        textout_ex(buffer, font, bufferSaisie, box_x + 10, box_y + 8, makecol(255, 255, 0), -1);
+        rect(buffer, box_x, box_y, box_x + box_width, box_y + box_height, makecol(255, 200, 0));
+        draw_large_text(buffer, font, bufferSaisie, SCREEN_W / 2, box_y + 8, makecol(255, 255, 0), 1.8);
 
         // Curseur clignotant
         if ((clock() / 500) % 2 == 0 && index < 99) {
-            int cursor_x = box_x + 10 + text_length(font, bufferSaisie);
-            rectfill(buffer, cursor_x, box_y + 7, cursor_x + 2, box_y + box_height - 7, makecol(255, 255, 0));
+            int cursor_x = SCREEN_W / 2 + (text_length(font, bufferSaisie) * 1.8 / 2);
+            rectfill(buffer, cursor_x, box_y + 12, cursor_x + 3, box_y + box_height - 12, makecol(255, 255, 0));
         }
 
-        // Gestion clavier
         if (keypressed()) {
-            touche = readkey() & 0xff;
+            int k = readkey();
+            touche = k & 0xff;
+            int scancode = k >> 8;
+
             if (touche == 13) {
+                nettoyer_chaine(bufferSaisie);
                 strcpy(nom2, bufferSaisie);
                 *peux_jouer = true;
             } else if (touche == 8 && index > 0) {
@@ -108,12 +152,19 @@ t_personnage charger(bool *peux_jouer) {// On fait charger le joueur si il y a u
             } else if (touche >= 32 && touche <= 126 && index < 99) {
                 bufferSaisie[index++] = (char)touche;
                 bufferSaisie[index] = '\0';
+            } else if (scancode == KEY_UP && debut_affichage > 0) {
+                debut_affichage--;
+            } else if (scancode == KEY_DOWN && (debut_affichage + max_affiches) < j) {
+                debut_affichage++;
             }
+
         }
+
 
         blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
         rest(16);
     }
+
     destroy_bitmap(buffer);
     destroy_bitmap(fond);
 
@@ -131,6 +182,7 @@ t_personnage charger(bool *peux_jouer) {// On fait charger le joueur si il y a u
     }
     if(compteur == j) { //Si mon compteur vaut le nombre de pseudo enregistrer cela signifie que le nom n'existe pas
         FILE* pt4= fopen("nom.txt", "a");
+        nettoyer_chaine(nom2);
         fprintf(pt4, "%s\n", nom2);//On ne sauvegarde que des noms et pas des noms avec des .txt a la fin
         fclose(pt4);
     }

@@ -1,9 +1,8 @@
 #ifndef menu_h
 #define menu_h
 
-void draw_menu(BITMAP *buffer,BITMAP *background);
+void draw_menu(BITMAP *buffer,BITMAP *background,BITMAP* bouton_image);
 void show_difficulty_menu(BITMAP *buffer,BITMAP *background);
 void draw_settings(BITMAP *buffer,BITMAP *background);
 void menu(BITMAP *buffer,BITMAP *background,SAMPLE *music);
-void ecran_game_over(BITMAP* buffer);
 #endif

@@ -14,7 +14,6 @@ void initialiserPersonnage(t_personnage *p, float x, float y, float lift) {
     p->lift = lift;
     p->width = 0;
     p->height = 0;
-    p->isAlive = 1;
     p->spriteIndex = 0;
     p->animationTimer = 0;
     p->animationSpeed = 5; // 5 frames entre chaque sprite

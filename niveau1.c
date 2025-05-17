@@ -8,66 +8,145 @@
 #define SCREEN_W 1920
 #define SCREEN_H 1080
 
-void gerer_collisions(BITMAP* map, t_personnage* perso, int screen_x,
-                      bool* bloque_droite_ou_bas) {
+extern int game_started;
+extern int in_settings;
+extern int jeux1;
+extern int jeux2;
+extern int jeux3;
+
+void gerer_collisions(BITMAP* map, t_personnage* perso, int screen_x, bool* bloque_droite_ou_bas) {
     int noir = makecol(0, 0, 0);
     int x_map = perso->x + screen_x;
     int y_map = perso->y;
     int w = perso->width;
     int h = perso->height;
 
+    int marge_x = 5; // marge pour éviter les bords bruts
+    int marge_y = 5;
+
     *bloque_droite_ou_bas = false;
 
-    // Collision en haut (bloque uniquement la montée)
+    // --- Collision en haut ---
     if (perso->vy < 0) {
-        for (int i = 0; i < w; i++) {
-            if (getpixel(map, x_map + i, y_map) == noir) {
+        for (int i = marge_x; i < w - marge_x; i++) {
+            if (getpixel(map, x_map + i, y_map - 1) == noir) {
                 perso->vy = 0;
+                perso->y += 2; // pousse vers le bas pour ne pas rester bloqué
                 break;
             }
         }
     }
 
-    // Collision en bas (bloque uniquement la descente)
+    // --- Collision en bas ---
     if (perso->vy > 0) {
-        for (int i = 0; i < w; i++) {
-            if (getpixel(map, x_map + i, y_map + h - 1) == noir) {
+        for (int i = marge_x; i < w - marge_x; i++) {
+            if (getpixel(map, x_map + i, y_map + h) == noir) {
                 perso->vy = 0;
+                perso->y -= 2; // pousse vers le haut pour ne pas s'enfoncer
                 *bloque_droite_ou_bas = true;
                 break;
             }
         }
     }
 
-    // Collision à droite (bloque tout)
-    for (int j = 0; j < h; j++) {
-        if (getpixel(map, x_map + w - 1, y_map + j) == noir) {
-            perso->vx = 0;
-            perso->vy = 0;
-            *bloque_droite_ou_bas = true;
-            break;
+    // --- Collision à droite ---
+    if (perso->vx > 0) {
+        for (int j = marge_y; j < h - marge_y; j++) {
+            if (getpixel(map, x_map + w, y_map + j) == noir) {
+                perso->vx = 0;
+                perso->x -= 2; // pousse vers la gauche
+                *bloque_droite_ou_bas = true;
+                break;
+            }
+        }
+    }
+
+    // --- Collision à gauche (facultatif, selon ton gameplay) ---
+    if (perso->vx < 0) {
+        for (int j = marge_y; j < h - marge_y; j++) {
+            if (getpixel(map, x_map - 1, y_map + j) == noir) {
+                perso->vx = 0;
+                perso->x += 2;
+                break;
+            }
         }
     }
 }
 
+
+
+
 void verifier_fin_scrolling(bool* fin_scrol, BITMAP* niveau1_map, int screen_x, t_personnage* perso) {
+    //Cette fonctionnalite est temporairement enleve pcq probleme avec detection
     if(niveau1_map->w - screen_x + 10 <= SCREEN_W) { //permet de verifier que si on atteint la fin du bitmap il n'y ai plus de scrolling
         *fin_scrol = true;
     }
 }
 
-void gerer_mort(t_personnage* perso, bool* fin, int screen_x, bool* fin_echec) {
-    //Mort par le scrolling
-    /**
-    if(screen_x > perso->x + perso->width - 1) {
+void gerer_mort(t_personnage* perso, bool* fin, int screen_x, bool* fin_reussite) {
+    //Mort par scrolling
+    if (perso->x + perso->width < 0) {
         perso->nb_mort += 1;
         *fin = true;
-        *fin_echec = true;
+        *fin_reussite = false;  // échec
     }
-    **/
 }
 
-void jouer_niveau1() {
+void gerer_reussite(t_personnage * perso, bool* fin, bool* fin_reussite) {
+
+}
+
+void ecran_fin_jeu(bool victoire, BITMAP* buffer2) {
+    BITMAP* fond = load_bitmap(victoire ? "fond_victoire.bmp" : "game_over.bmp", NULL);
+
+    if (!fond || !buffer2) {
+        allegro_message("Erreur de chargement image de fin !");
+        return;
+    }
+
+    bool fin = false;
+    int action = 0;  // 1 = rejouer, 2 = retour
+
+    while (!fin) {
+        blit(fond, buffer2, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+
+        // --- Bouton REJOUER ---
+        rectfill(buffer2, SCREEN_W / 2 - 100, 700, SCREEN_W / 2 + 100, 750, makecol(0, 0, 0));
+        textout_centre_ex(buffer2, font, "REJOUER", SCREEN_W / 2, 720, makecol(255, 255, 255), -1);
+
+        // --- Bouton RETOUR ---
+        rectfill(buffer2, SCREEN_W / 2 - 100, 900, SCREEN_W / 2 + 100, 950, makecol(0, 0, 0));
+        textout_centre_ex(buffer2, font, "RETOUR", SCREEN_W / 2, 920, makecol(255, 255, 255), -1);
+
+        // Gestion clic
+        if (mouse_b & 1) {
+            if (mouse_x > SCREEN_W / 2 - 100 && mouse_x < SCREEN_W / 2 + 100) {
+                if (mouse_y > 700 && mouse_y < 750) {
+                    action = 1;  // REJOUER
+                    fin = true;
+                }
+                if (mouse_y > 900 && mouse_y < 950) {
+                    action = 2;  // RETOUR
+                    fin = true;
+                }
+            }
+        }
+
+        show_mouse(buffer2);
+        blit(buffer2, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+        rest(16);
+    }
+
+    destroy_bitmap(fond);
+
+    if (action == 1) {
+        jouer_niveau1(buffer2);  // On rejoue le niveau
+    }
+    // Sinon, on revient dans le menu des niveaux (rien à faire, ça reprend dans menu())
+}
+
+
+void jouer_niveau1(BITMAP* buffer2) {
     bool fin = false;
     bool fin_scrol = false;
     t_personnage perso;
@@ -76,7 +155,6 @@ void jouer_niveau1() {
     int touche_appuyer = 0;
     bool bloque_droite_ou_bas = false;
     bool peux_jouer = false;
-    bool fin_echec = false;
     bool fin_reussite = false;
 
     // Chargement joueur
@@ -89,7 +167,6 @@ void jouer_niveau1() {
 
         // Chargement de la map et du buffer
         BITMAP* niveau1_map = load_bitmap("decor1.bmp", NULL);
-        BITMAP* buffer2 = create_bitmap(SCREEN_W, SCREEN_H);
 
         //Objet speciaux
         chargerObjetsSpeciaux();
@@ -108,9 +185,6 @@ void jouer_niveau1() {
                 // Animation du personnage
                 animerPersonnage(&perso);
             }
-
-            // Vérifie la fin du scrolling
-            verifier_fin_scrolling(&fin_scrol, niveau1_map, screen_x, &perso);
 
             // Dessin du décor
             blit(niveau1_map, buffer2, screen_x, screen_y, 0, 0, SCREEN_W, SCREEN_H);
@@ -145,7 +219,8 @@ void jouer_niveau1() {
 
             // Gestion des collisions
             gerer_collisions(niveau1_map, &perso, screen_x, &bloque_droite_ou_bas);
-            gerer_mort(&perso, &fin, screen_x, &fin_echec);
+            gerer_mort(&perso, &fin, screen_x, &fin_reussite);
+            gerer_reussite(&perso, &fin, &fin_reussite);
 
             // Mise à jour de la position
             perso.x += perso.vx;
@@ -160,15 +235,20 @@ void jouer_niveau1() {
             rest(16);
         }
 
-        ecran_game_over(buffer2);
         // Nettoyage
-
         libererSprites(&perso);
         libererObjetsSpeciaux();
         destroy_bitmap(niveau1_map);
-        destroy_bitmap(buffer2);
 
         // Sauvegarde
         sauvegarder(&perso);
+
+        if (fin_reussite) {
+            perso.niveau1_fini = 1;
+            perso.nb_niveau += 1;
+            ecran_fin_jeu(true, buffer2);  // true = victoire
+        } else {
+            ecran_fin_jeu(false, buffer2); // false = échec
+        }
     }
 }

@@ -25,44 +25,14 @@ void initialisation_allegro() {
 
 int main() {
     initialisation_allegro();
-    BITMAP *buffer = create_bitmap(SCREEN_W, SCREEN_H);
+    BITMAP *buffer_menu = create_bitmap(SCREEN_W, SCREEN_H);
     BITMAP *background = load_bitmap("fond_menu1.bmp", NULL);
     SAMPLE *music = load_sample("musique_menu2.wav");
-    //FONT *my_font = load_ttf_font("arial.ttf", 32, 0);
 
-    menu(buffer,background,music);
+    menu(buffer_menu,background,music);
 
-    destroy_bitmap(buffer);
+    destroy_bitmap(buffer_menu);
     destroy_bitmap(background);
     destroy_sample(music);
-    /**
-    if (exists("spritevol1.bmp")) {
-        allegro_message("Le fichier spritevol1.bmp est bien trouvé !");
-    } else {
-        allegro_message("Fichier introuvable : spritevol1.bmp");
-    }
-    initialiserPersonnage(&perso, 100, 300, 0.6);
-
-    chargerSprites(&perso);
-
-    while (!key[KEY_ESC]) {
-        if (key[KEY_SPACE]) {
-            perso.vy -= perso.lift;
-        }
-        perso.vy += 0.3;
-        perso.y += perso.vy;
-
-        animerPersonnage(&perso);
-
-        clear(buffer);
-        dessinerPersonnage(&perso, buffer);
-        blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
-        rest(20);
-    }
-    libererSprites(&perso);
-    destroy_bitmap(buffer);
-    destroy_bitmap(background);
-    destroy_sample(music);
-    **/
     return 0;
 }END_OF_MAIN();
