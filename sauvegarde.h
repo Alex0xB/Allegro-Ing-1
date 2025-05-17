@@ -5,9 +5,9 @@
 
 void sauvegarder(t_personnage* personnage);
 
-t_personnage* charger(bool *peux_jouer);
+void draw_large_text(BITMAP* dest, FONT* font, const char* text, int x, int y, int color, float scale);
 
-bool verification_nom(char nom[100]);
+t_personnage charger(bool *peux_jouer);
 
 #endif //SAUVEGARDE_H
 //a

@@ -8,11 +8,6 @@
 #define SCREEN_W 1920
 #define SCREEN_H 1080
 
-void chargement_joueur(bool *peux_jouer, t_personnage * perso) {
-    //Afficher une interface pour recuperer ou creer un compte
-    perso = charger(&(*peux_jouer));
-}
-
 void gerer_collisions(BITMAP* map, t_personnage* perso, int screen_x,
                       bool* bloque_droite_ou_bas) {
     int noir = makecol(0, 0, 0);
@@ -55,16 +50,21 @@ void gerer_collisions(BITMAP* map, t_personnage* perso, int screen_x,
     }
 }
 
-
-
-
-
-
-
 void verifier_fin_scrolling(bool* fin_scrol, BITMAP* niveau1_map, int screen_x, t_personnage* perso) {
     if(niveau1_map->w - screen_x + 10 <= SCREEN_W) { //permet de verifier que si on atteint la fin du bitmap il n'y ai plus de scrolling
         *fin_scrol = true;
     }
+}
+
+void gerer_mort(t_personnage* perso, bool* fin, int screen_x, bool* fin_echec) {
+    //Mort par le scrolling
+    /**
+    if(screen_x > perso->x + perso->width - 1) {
+        perso->nb_mort += 1;
+        *fin = true;
+        *fin_echec = true;
+    }
+    **/
 }
 
 void jouer_niveau1() {
@@ -76,9 +76,12 @@ void jouer_niveau1() {
     int touche_appuyer = 0;
     bool bloque_droite_ou_bas = false;
     bool peux_jouer = false;
+    bool fin_echec = false;
+    bool fin_reussite = false;
 
     // Chargement joueur
-    chargement_joueur(&peux_jouer,&perso);
+    perso = charger(&peux_jouer);
+
     if(peux_jouer) {
          // Initialisation personnage
         initialiserPersonnage(&perso, 100, 300, 0.6);  // Position fixe x = 100
@@ -142,6 +145,7 @@ void jouer_niveau1() {
 
             // Gestion des collisions
             gerer_collisions(niveau1_map, &perso, screen_x, &bloque_droite_ou_bas);
+            gerer_mort(&perso, &fin, screen_x, &fin_echec);
 
             // Mise à jour de la position
             perso.x += perso.vx;
@@ -155,13 +159,16 @@ void jouer_niveau1() {
             // Cadence
             rest(16);
         }
-        ecran_game_over(buffer2);
 
+        ecran_game_over(buffer2);
         // Nettoyage
+
         libererSprites(&perso);
         libererObjetsSpeciaux();
         destroy_bitmap(niveau1_map);
         destroy_bitmap(buffer2);
+
+        // Sauvegarde
         sauvegarder(&perso);
     }
 }
