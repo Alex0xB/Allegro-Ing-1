@@ -78,6 +78,7 @@ t_personnage* charger(bool *peux_jouer) {// On fait charger le joueur si il y a 
     }
     destroy_bitmap(buffer);
     destroy_bitmap(fond);
+    //a
 
     //on  rajoute .txt a la fin de nom2[100] pour pouvoir lire le fichier
     strcpy(nom2_txt, nom2);
