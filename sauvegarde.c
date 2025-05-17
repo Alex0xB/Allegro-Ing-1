@@ -47,7 +47,8 @@ void sauvegarder(t_personnage* personnage) {
     }
 }
 
-void charger(t_personnage* personnage) {// On fait charger le joueur si il y a une sauvegarde a charger sinon faire directement initialiser joueur
+t_personnage* charger() {// On fait charger le joueur si il y a une sauvegarde a charger sinon faire directement initialiser joueur
+    t_personnage* personnage;
     char nom[100];
     FILE* pt= fopen("nom.txt", "r");
     printf("Sauvegardes disponibles :\n");
@@ -70,6 +71,7 @@ void charger(t_personnage* personnage) {// On fait charger le joueur si il y a u
     fscanf(pt2, "%d", personnage->nb_mort);
     fscanf(pt2, "%d", personnage->nb_niveau);
     fclose(pt2);
+    return personnage;
 }
 
 bool verification_nom(char nom[100]) {
