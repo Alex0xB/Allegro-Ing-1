@@ -57,7 +57,7 @@ t_personnage* charger(bool **peux_jouer) {// On fait charger le joueur si il y a
     }
 
     //On recupere les informations si le compte existe sinon on lui en cree
-    if(compteur == j) {
+    if(compteur != j) {
         FILE* pt2 = fopen(nom2_txt, "r"); //J'ouvre mon fichier .txt
 
         fscanf(pt2, "%s", personnage->nom);
