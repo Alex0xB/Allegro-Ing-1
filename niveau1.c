@@ -1,4 +1,6 @@
 #include "niveau1.h"
+
+#include "menu.h"
 #include "stdbool.h"
 #include "sauvegarde.h"
 #include "personnage.h"
@@ -153,6 +155,7 @@ void jouer_niveau1() {
         // Cadence
         rest(16);
     }
+    ecran_game_over(buffer2);
 
     // Nettoyage
     libererSprites(&perso);
