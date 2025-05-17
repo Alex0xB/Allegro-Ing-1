@@ -5,7 +5,7 @@
 
 void sauvegarder(t_personnage* personnage);
 
-void charger(t_personnage* personnage);
+t_personnage* charger();
 
 bool verification_nom(char nom[100]);
 

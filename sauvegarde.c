@@ -51,17 +51,11 @@ t_personnage* charger() {// On fait charger le joueur si il y a une sauvegarde a
     t_personnage* personnage;
     char nom[100];
     FILE* pt= fopen("nom.txt", "r");
-    printf("Sauvegardes disponibles :\n");
     while(fscanf(pt, "%s", nom) == 1) { //J'affiche toute les sauvegardes
-        printf("- %s\n", nom);
+        //rajout code graphique
     }
     fclose(pt);
-
     char nom2[100];
-    do {
-        printf("Nom de la sauvegarde avec le .txt\n");
-        scanf("%s", nom2);
-    }while(!verification_nom(nom2));
 
     FILE* pt2 = fopen(nom2, "r");
     if(pt2 == NULL) {

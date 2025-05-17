@@ -10,7 +10,7 @@
 
 void chargement_joueur(bool *peux_jouer, t_personnage * perso) {
     //Afficher une interface pour recuperer ou creer un compte
-
+    perso = charger();
 }
 
 void gerer_collisions(BITMAP* map, t_personnage* perso, int screen_x,
