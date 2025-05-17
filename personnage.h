@@ -16,9 +16,9 @@ typedef struct {
     char nom[100];
     int nb_mort;
     int nb_niveau;
-    int niveau1_fini = 0;
-    int niveau2_fini = 0;
-    int niveau3_fini = 0;
+    int niveau1_fini;
+    int niveau2_fini;
+    int niveau3_fini;
 
     BITMAP *sprites[10];     // Tableau de sprites (max 10)
 } t_personnage;

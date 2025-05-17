@@ -5,7 +5,7 @@
 
 void sauvegarder(t_personnage* personnage);
 
-t_personnage* charger(bool **peux_jouer);
+t_personnage* charger(bool *peux_jouer);
 
 bool verification_nom(char nom[100]);
 
