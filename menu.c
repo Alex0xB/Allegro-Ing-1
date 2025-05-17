@@ -132,7 +132,28 @@ void menu(BITMAP *buffer,BITMAP *background,SAMPLE *music) {
 }
 
 void ecran_game_over(BITMAP* buffer) {
-    BITMAP *background = load_bitmap("game_over", NULL);
+    clear_bitmap(buffer);
+    show_mouse(NULL);
+    BITMAP* background = load_bitmap("game_over.bmp", NULL);
+    BITMAP* background2 = load_bitmap("fond_menu1.bmp", NULL);
+    SAMPLE *music = load_sample("musique_menu2.wav");
     blit(background, buffer, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
-    blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+    while (!key[KEY_ESC]) {
+        rectfill(buffer, SCREEN_W / 2 - 100, 700, SCREEN_W / 2 + 100, 750, makecol(0, 0, 0));
+        textout_centre_ex(buffer, font, "REJOUER ", SCREEN_W / 2, 720, makecol(255, 255, 255), -1);
+        rectfill(buffer, SCREEN_W / 2 - 100, 900, SCREEN_W / 2 + 100, 950, makecol(0, 0, 0));
+        textout_centre_ex(buffer, font, "RETOUR ", SCREEN_W / 2, 920, makecol(255, 255, 255), -1);
+        if (mouse_b & 1) {
+            if (mouse_x > SCREEN_W / 2 - 100 && mouse_x < SCREEN_W / 2 + 100 && mouse_y > 700 && mouse_y < 750) {
+                game_started = 1;
+                menu(buffer,background2,music);
+            }
+            if (mouse_x > SCREEN_W / 2 - 100 && mouse_x < SCREEN_W / 2 + 100 && mouse_y > 900 && mouse_y < 950) {
+                menu(buffer,background2,music);
+            }
+
+        }
+        show_mouse(buffer);
+        blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+    }
 }
