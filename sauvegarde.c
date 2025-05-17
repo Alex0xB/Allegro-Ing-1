@@ -49,22 +49,33 @@ void sauvegarder(t_personnage* personnage) {
 
 t_personnage* charger() {// On fait charger le joueur si il y a une sauvegarde a charger sinon faire directement initialiser joueur
     t_personnage* personnage;
-    char nom[100];
+    char nom[100][100];
     FILE* pt= fopen("nom.txt", "r");
-    while(fscanf(pt, "%s", nom) == 1) { //J'affiche toute les sauvegardes
-        //rajout code graphique
+
+    //On recupere tous nos nom
+    int j = 0;
+    while(fscanf(pt, "%s", nom[j]) == 1) {
+        j++;
     }
     fclose(pt);
-    char nom2[100];
 
+    //Afficher tous les nom (Code avec menu Allegro a integre ici)
+
+
+
+
+    //On recupere les informations
+    char nom2[100];
     FILE* pt2 = fopen(nom2, "r");
-    if(pt2 == NULL) {
-        printf("Erreur d'ouvrir le fichier ou impossible d'ouvrir le fichier avec le joueur\n");
-    }
+
     fscanf(pt2, "%s", personnage->nom);
     fscanf(pt2, "%d", personnage->nb_mort);
     fscanf(pt2, "%d", personnage->nb_niveau);
+    fscanf(pt2, "%d", personnage->niveau1_fini);
+    fscanf(pt2, "%d", personnage->niveau2_fini);
+    fscanf(pt2, "%d", personnage->niveau3_fini);
     fclose(pt2);
+
     return personnage;
 }
 
