@@ -47,7 +47,7 @@ void sauvegarder(t_personnage* personnage) {
     }
 }
 
-t_personnage* charger() {// On fait charger le joueur si il y a une sauvegarde a charger sinon faire directement initialiser joueur
+t_personnage* charger(bool **peux_jouer) {// On fait charger le joueur si il y a une sauvegarde a charger sinon faire directement initialiser joueur
     t_personnage* personnage;
     char nom[100][100];
     FILE* pt= fopen("nom.txt", "r");
@@ -60,12 +60,14 @@ t_personnage* charger() {// On fait charger le joueur si il y a une sauvegarde a
     fclose(pt);
 
     //Afficher tous les nom (Code avec menu Allegro a integre ici)
-
-
+    char nom2[100];
+    while(peux_jouer == false) {
+        **peux_jouer = true;
+    }
 
 
     //On recupere les informations
-    char nom2[100];
+
     FILE* pt2 = fopen(nom2, "r");
 
     fscanf(pt2, "%s", personnage->nom);
