@@ -16,12 +16,14 @@ extern int jeux3;
 
 void gerer_collisions(BITMAP* map, t_personnage* perso, int screen_x, bool* bloque_droite_ou_bas) {
     int noir = makecol(0, 0, 0);
+    int mortel = makecol(1, 0, 0);  // rouge mortel
+
     int x_map = perso->x + screen_x;
     int y_map = perso->y;
     int w = perso->width;
     int h = perso->height;
 
-    int marge_x = 5; // marge pour éviter les bords bruts
+    int marge_x = 5;
     int marge_y = 5;
 
     *bloque_droite_ou_bas = false;
@@ -29,9 +31,14 @@ void gerer_collisions(BITMAP* map, t_personnage* perso, int screen_x, bool* bloq
     // --- Collision en haut ---
     if (perso->vy < 0) {
         for (int i = marge_x; i < w - marge_x; i++) {
-            if (getpixel(map, x_map + i, y_map - 1) == noir) {
+            int pixel = getpixel(map, x_map + i, y_map - 1);
+            if (pixel == noir) {
                 perso->vy = 0;
-                perso->y += 2; // pousse vers le bas pour ne pas rester bloqué
+                perso->y += 2;
+                break;
+            }
+            if (pixel == mortel) {
+                perso->x = -1000; // déclenche mort par scrolling
                 break;
             }
         }
@@ -40,10 +47,15 @@ void gerer_collisions(BITMAP* map, t_personnage* perso, int screen_x, bool* bloq
     // --- Collision en bas ---
     if (perso->vy > 0) {
         for (int i = marge_x; i < w - marge_x; i++) {
-            if (getpixel(map, x_map + i, y_map + h) == noir) {
+            int pixel = getpixel(map, x_map + i, y_map + h);
+            if (pixel == noir) {
                 perso->vy = 0;
-                perso->y -= 2; // pousse vers le haut pour ne pas s'enfoncer
+                perso->y -= 2;
                 *bloque_droite_ou_bas = true;
+                break;
+            }
+            if (pixel == mortel) {
+                perso->x = -1000;
                 break;
             }
         }
@@ -52,26 +64,37 @@ void gerer_collisions(BITMAP* map, t_personnage* perso, int screen_x, bool* bloq
     // --- Collision à droite ---
     if (perso->vx > 0) {
         for (int j = marge_y; j < h - marge_y; j++) {
-            if (getpixel(map, x_map + w, y_map + j) == noir) {
+            int pixel = getpixel(map, x_map + w, y_map + j);
+            if (pixel == noir) {
                 perso->vx = 0;
-                perso->x -= 2; // pousse vers la gauche
+                perso->x -= 2;
                 *bloque_droite_ou_bas = true;
+                break;
+            }
+            if (pixel == mortel) {
+                perso->x = -1000;
                 break;
             }
         }
     }
 
-    // --- Collision à gauche (facultatif, selon ton gameplay) ---
+    // --- Collision à gauche ---
     if (perso->vx < 0) {
         for (int j = marge_y; j < h - marge_y; j++) {
-            if (getpixel(map, x_map - 1, y_map + j) == noir) {
+            int pixel = getpixel(map, x_map - 1, y_map + j);
+            if (pixel == noir) {
                 perso->vx = 0;
                 perso->x += 2;
+                break;
+            }
+            if (pixel == mortel) {
+                perso->x = -1000;
                 break;
             }
         }
     }
 }
+
 
 void verifier_fin_scrolling(bool* fin_scrol, BITMAP* niveau1_map, int screen_x, t_personnage* perso) {
     //Cette fonctionnalite est temporairement enleve pcq probleme avec detection
@@ -148,6 +171,13 @@ void ecran_fin_jeu(bool victoire, BITMAP* buffer2, t_personnage* perso) {
     // Sinon, on revient dans le menu des niveaux (rien à faire, ça reprend dans menu())
 }
 
+void afficher_vies(BITMAP *buffer, BITMAP *coeur, int nb_vies) {
+    if (nb_vies > 3) nb_vies = 3;
+
+    for (int i = 0; i < nb_vies; i++) {
+        draw_sprite(buffer, coeur, SCREEN_W - 60 - i * 50, 20);
+    }
+}
 
 void jouer_niveau1(BITMAP* buffer2, t_personnage* perso) {
     bool fin = false;
@@ -164,6 +194,8 @@ void jouer_niveau1(BITMAP* buffer2, t_personnage* perso) {
 
     // Chargement de la map et du buffer
     BITMAP *niveau1_map = load_bitmap("decor1.bmp", NULL);
+    BITMAP *coeur = load_bitmap("coeur.bmp", NULL);
+
 
     // Boucle de jeu
     while (!fin) {
@@ -184,6 +216,11 @@ void jouer_niveau1(BITMAP* buffer2, t_personnage* perso) {
 
         // Dessin du personnage
         dessinerPersonnage(perso, buffer2);
+
+        textprintf_ex(buffer2, font, 10, 10, makecol(255, 255, 255), -1, "Vies: %d", perso->nb_vies);
+
+        //Dessin coeur
+        afficher_vies(buffer2, coeur, perso->nb_vies);
 
         // Affichage du buffer à l’écran
         blit(buffer2, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
@@ -232,14 +269,21 @@ void jouer_niveau1(BITMAP* buffer2, t_personnage* perso) {
     libererSprites(perso);
     libererObjetsSpeciaux();
     destroy_bitmap(niveau1_map);
+    destroy_bitmap(coeur);
 
     if (fin_reussite) {
         perso->niveau1_fini = 1;
         perso->nb_niveau += 1;
-        // Sauvegarde
         sauvegarder(perso);
-        jouer_niveau2(buffer2, perso); // true = victoire
+        jouer_niveau2(buffer2, perso);
     } else {
-        ecran_fin_jeu(false, buffer2, perso); // false = échec
+        perso->nb_vies--;
+
+        if (perso->nb_vies <= 0) {
+            ecran_fin_jeu(false, buffer2, perso);
+        } else {
+            jouer_niveau1(buffer2, perso); // relancer avec une vie en moins
+        }
     }
+
 }

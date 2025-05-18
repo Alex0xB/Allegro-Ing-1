@@ -197,6 +197,7 @@ t_personnage charger(bool *peux_jouer) {// On fait charger le joueur si il y a u
         fscanf(pt2, "%d", &personnage.niveau1_fini);
         fscanf(pt2, "%d", &personnage.niveau2_fini);
         fscanf(pt2, "%d", &personnage.niveau3_fini);
+        fscanf(pt2, "%d", &personnage.nb_vies);
         fclose(pt2);
     }
     else {
@@ -206,6 +207,7 @@ t_personnage charger(bool *peux_jouer) {// On fait charger le joueur si il y a u
         personnage.niveau1_fini = 0;
         personnage.niveau2_fini = 0;
         personnage.niveau3_fini = 0;
+        personnage.nb_vies = 3;
     }
     return personnage;
 }

@@ -20,6 +20,8 @@ typedef struct {
     int niveau2_fini;
     int niveau3_fini;
 
+    int nb_vies;
+
     BITMAP *sprites[10];     // Tableau de sprites (max 10)
 } t_personnage;
 

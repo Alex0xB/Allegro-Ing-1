@@ -17,6 +17,11 @@ void initialiserPersonnage(t_personnage *p, float x, float y, float lift) {
     p->spriteIndex = 0;
     p->animationTimer = 0;
     p->animationSpeed = 5; // 5 frames entre chaque sprite
+
+    if(p->nb_vies == 0) {
+        p->nb_vies = 3;
+    }
+
 }
 
 void chargerSprites(t_personnage *p) {

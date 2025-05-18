@@ -30,7 +30,6 @@ int main() {
     SAMPLE *music = load_sample("musique_menu2.wav");
 
     t_personnage perso;
-
     menu(buffer_menu,background,music,&perso);
 
     destroy_bitmap(buffer_menu);

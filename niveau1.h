@@ -13,5 +13,7 @@ void gerer_reussite(t_personnage * perso, bool* fin, bool* fin_reussite, int scr
 
 void ecran_fin_jeu(bool victoire, BITMAP* buffer2, t_personnage* perso);
 
+void afficher_vies(BITMAP *buffer, BITMAP *coeur, int nb_vies);
+
 void jouer_niveau1(BITMAP* buffer2, t_personnage* perso);
 #endif //NIVEAU1_H
