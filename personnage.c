@@ -97,7 +97,7 @@ void activerBonusRalentissement(t_personnage *p) {
 }
 
 void activerMalusAcceleration(t_personnage *p) {
-    p->vx = -2; // Compensation moins forte → scroll paraît plus rapide
+    p->vx = 3; // Compensation moins forte → scroll paraît plus rapide
 }
 
 void activerMalusGravite(t_personnage *p) {

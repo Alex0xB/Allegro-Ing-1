@@ -73,9 +73,6 @@ void gerer_collisions(BITMAP* map, t_personnage* perso, int screen_x, bool* bloq
     }
 }
 
-
-
-
 void verifier_fin_scrolling(bool* fin_scrol, BITMAP* niveau1_map, int screen_x, t_personnage* perso) {
     //Cette fonctionnalite est temporairement enleve pcq probleme avec detection
     if(niveau1_map->w - screen_x + 10 <= SCREEN_W) { //permet de verifier que si on atteint la fin du bitmap il n'y ai plus de scrolling
@@ -188,15 +185,6 @@ void jouer_niveau1(BITMAP* buffer2) {
                     perso.vy = 10;
                     perso.vx = 0;
                 }
-                if (key[KEY_R]) {
-                    activerBonusRalentissement(&perso);
-                }
-                if (key[KEY_A]) {
-                    activerMalusAcceleration(&perso);
-                }
-                if (key[KEY_G]) {
-                    activerMalusGravite(&perso);
-                }
 
                 // Animation du personnage
                 animerPersonnage(&perso);
@@ -227,6 +215,16 @@ void jouer_niveau1(BITMAP* buffer2) {
                 } else {
                     perso.vx = 0;  // pas de compensation
                 }
+            }
+
+            if (key[KEY_R]) {
+                activerBonusRalentissement(&perso);
+            }
+            if (key[KEY_A]) {
+                activerMalusAcceleration(&perso);
+            }
+            if (key[KEY_G]) {
+                activerMalusGravite(&perso);
             }
 
             if (fin_scrol) {
