@@ -285,6 +285,7 @@ void jouer_niveau1(BITMAP* buffer2, t_personnage* perso,SAMPLE* music1,int music
             stop_sample(music1);
             ecran_fin_jeu(false, buffer2, perso,music1,music_volume,music2,music3);
         } else {
+            stop_sample(music1);
             jouer_niveau1(buffer2, perso,music1,music_volume,music2,music3); // relancer avec une vie en moins
         }
     }
