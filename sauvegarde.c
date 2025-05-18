@@ -31,6 +31,7 @@ void sauvegarder(t_personnage* personnage) {
     fprintf(pt, "%d\n", personnage->niveau1_fini);
     fprintf(pt, "%d\n", personnage->niveau2_fini);
     fprintf(pt, "%d\n", personnage->niveau3_fini);
+    fprintf(pt, "%d\n", personnage->nb_vies);
     fclose(pt);
 }
 
