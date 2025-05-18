@@ -51,4 +51,7 @@ CMakeFiles/allegro_projet_v1.dir/main.c.obj: \
  c:\mingw\include\allegro/inline/3dmaths.inl \
  c:\mingw\include\allegro/alcompat.h \
  c:\mingw\include\allegro/platform/alwin.h \
- C:\Users\Alexis\Allegro-Ing-1\sauvegarde.h
+ C:\Users\Alexis\Allegro-Ing-1\sauvegarde.h \
+ C:\Users\Alexis\Allegro-Ing-1\personnage.h \
+ c:\mingw\lib\gcc\mingw32\6.3.0\include\stdbool.h \
+ C:\Users\Alexis\Allegro-Ing-1\menu.h

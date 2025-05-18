@@ -8,7 +8,13 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "C:/Users/Alexis/Allegro-Ing-1/decor.c" "CMakeFiles/allegro_projet_v1.dir/decor.c.obj" "gcc" "CMakeFiles/allegro_projet_v1.dir/decor.c.obj.d"
   "C:/Users/Alexis/Allegro-Ing-1/main.c" "CMakeFiles/allegro_projet_v1.dir/main.c.obj" "gcc" "CMakeFiles/allegro_projet_v1.dir/main.c.obj.d"
+  "C:/Users/Alexis/Allegro-Ing-1/menu.c" "CMakeFiles/allegro_projet_v1.dir/menu.c.obj" "gcc" "CMakeFiles/allegro_projet_v1.dir/menu.c.obj.d"
+  "C:/Users/Alexis/Allegro-Ing-1/niveau1.c" "CMakeFiles/allegro_projet_v1.dir/niveau1.c.obj" "gcc" "CMakeFiles/allegro_projet_v1.dir/niveau1.c.obj.d"
+  "C:/Users/Alexis/Allegro-Ing-1/niveau2.c" "CMakeFiles/allegro_projet_v1.dir/niveau2.c.obj" "gcc" "CMakeFiles/allegro_projet_v1.dir/niveau2.c.obj.d"
+  "C:/Users/Alexis/Allegro-Ing-1/niveau3.c" "CMakeFiles/allegro_projet_v1.dir/niveau3.c.obj" "gcc" "CMakeFiles/allegro_projet_v1.dir/niveau3.c.obj.d"
+  "C:/Users/Alexis/Allegro-Ing-1/personnage.c" "CMakeFiles/allegro_projet_v1.dir/personnage.c.obj" "gcc" "CMakeFiles/allegro_projet_v1.dir/personnage.c.obj.d"
   "C:/Users/Alexis/Allegro-Ing-1/sauvegarde.c" "CMakeFiles/allegro_projet_v1.dir/sauvegarde.c.obj" "gcc" "CMakeFiles/allegro_projet_v1.dir/sauvegarde.c.obj.d"
   )
 

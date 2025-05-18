@@ -47,19 +47,19 @@ cmake_force:
 SHELL = cmd.exe
 
 # The CMake executable.
-CMAKE_COMMAND = "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe"
+CMAKE_COMMAND = "C:\Program Files\JetBrains\CLion 2024.2.2\bin\cmake\win\x64\bin\cmake.exe"
 
 # The command to remove a file.
-RM = "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E rm -f
+RM = "C:\Program Files\JetBrains\CLion 2024.2.2\bin\cmake\win\x64\bin\cmake.exe" -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\Users\pdemo\Allegro-Ing-1
+CMAKE_SOURCE_DIR = C:\Users\Alexis\Allegro-Ing-1
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Users\pdemo\Allegro-Ing-1\cmake-build-debug
+CMAKE_BINARY_DIR = C:\Users\Alexis\Allegro-Ing-1\cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -67,7 +67,7 @@ CMAKE_BINARY_DIR = C:\Users\pdemo\Allegro-Ing-1\cmake-build-debug
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "No interactive CMake dialog available..."
-	"C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -E echo "No interactive CMake dialog available."
+	"C:\Program Files\JetBrains\CLion 2024.2.2\bin\cmake\win\x64\bin\cmake.exe" -E echo "No interactive CMake dialog available."
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -77,7 +77,7 @@ edit_cache/fast: edit_cache
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running CMake to regenerate build system..."
-	"C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	"C:\Program Files\JetBrains\CLion 2024.2.2\bin\cmake\win\x64\bin\cmake.exe" --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -86,9 +86,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\pdemo\Allegro-Ing-1\cmake-build-debug\CMakeFiles C:\Users\pdemo\Allegro-Ing-1\cmake-build-debug\\CMakeFiles\progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Alexis\Allegro-Ing-1\cmake-build-debug\CMakeFiles C:\Users\Alexis\Allegro-Ing-1\cmake-build-debug\\CMakeFiles\progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\pdemo\Allegro-Ing-1\cmake-build-debug\CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Alexis\Allegro-Ing-1\cmake-build-debug\CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -128,6 +128,30 @@ allegro_projet_v1/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\allegro_projet_v1.dir\build.make CMakeFiles/allegro_projet_v1.dir/build
 .PHONY : allegro_projet_v1/fast
 
+decor.obj: decor.c.obj
+.PHONY : decor.obj
+
+# target to build an object file
+decor.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\allegro_projet_v1.dir\build.make CMakeFiles/allegro_projet_v1.dir/decor.c.obj
+.PHONY : decor.c.obj
+
+decor.i: decor.c.i
+.PHONY : decor.i
+
+# target to preprocess a source file
+decor.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\allegro_projet_v1.dir\build.make CMakeFiles/allegro_projet_v1.dir/decor.c.i
+.PHONY : decor.c.i
+
+decor.s: decor.c.s
+.PHONY : decor.s
+
+# target to generate assembly for a file
+decor.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\allegro_projet_v1.dir\build.make CMakeFiles/allegro_projet_v1.dir/decor.c.s
+.PHONY : decor.c.s
+
 main.obj: main.c.obj
 .PHONY : main.obj
 
@@ -151,6 +175,126 @@ main.s: main.c.s
 main.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\allegro_projet_v1.dir\build.make CMakeFiles/allegro_projet_v1.dir/main.c.s
 .PHONY : main.c.s
+
+menu.obj: menu.c.obj
+.PHONY : menu.obj
+
+# target to build an object file
+menu.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\allegro_projet_v1.dir\build.make CMakeFiles/allegro_projet_v1.dir/menu.c.obj
+.PHONY : menu.c.obj
+
+menu.i: menu.c.i
+.PHONY : menu.i
+
+# target to preprocess a source file
+menu.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\allegro_projet_v1.dir\build.make CMakeFiles/allegro_projet_v1.dir/menu.c.i
+.PHONY : menu.c.i
+
+menu.s: menu.c.s
+.PHONY : menu.s
+
+# target to generate assembly for a file
+menu.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\allegro_projet_v1.dir\build.make CMakeFiles/allegro_projet_v1.dir/menu.c.s
+.PHONY : menu.c.s
+
+niveau1.obj: niveau1.c.obj
+.PHONY : niveau1.obj
+
+# target to build an object file
+niveau1.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\allegro_projet_v1.dir\build.make CMakeFiles/allegro_projet_v1.dir/niveau1.c.obj
+.PHONY : niveau1.c.obj
+
+niveau1.i: niveau1.c.i
+.PHONY : niveau1.i
+
+# target to preprocess a source file
+niveau1.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\allegro_projet_v1.dir\build.make CMakeFiles/allegro_projet_v1.dir/niveau1.c.i
+.PHONY : niveau1.c.i
+
+niveau1.s: niveau1.c.s
+.PHONY : niveau1.s
+
+# target to generate assembly for a file
+niveau1.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\allegro_projet_v1.dir\build.make CMakeFiles/allegro_projet_v1.dir/niveau1.c.s
+.PHONY : niveau1.c.s
+
+niveau2.obj: niveau2.c.obj
+.PHONY : niveau2.obj
+
+# target to build an object file
+niveau2.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\allegro_projet_v1.dir\build.make CMakeFiles/allegro_projet_v1.dir/niveau2.c.obj
+.PHONY : niveau2.c.obj
+
+niveau2.i: niveau2.c.i
+.PHONY : niveau2.i
+
+# target to preprocess a source file
+niveau2.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\allegro_projet_v1.dir\build.make CMakeFiles/allegro_projet_v1.dir/niveau2.c.i
+.PHONY : niveau2.c.i
+
+niveau2.s: niveau2.c.s
+.PHONY : niveau2.s
+
+# target to generate assembly for a file
+niveau2.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\allegro_projet_v1.dir\build.make CMakeFiles/allegro_projet_v1.dir/niveau2.c.s
+.PHONY : niveau2.c.s
+
+niveau3.obj: niveau3.c.obj
+.PHONY : niveau3.obj
+
+# target to build an object file
+niveau3.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\allegro_projet_v1.dir\build.make CMakeFiles/allegro_projet_v1.dir/niveau3.c.obj
+.PHONY : niveau3.c.obj
+
+niveau3.i: niveau3.c.i
+.PHONY : niveau3.i
+
+# target to preprocess a source file
+niveau3.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\allegro_projet_v1.dir\build.make CMakeFiles/allegro_projet_v1.dir/niveau3.c.i
+.PHONY : niveau3.c.i
+
+niveau3.s: niveau3.c.s
+.PHONY : niveau3.s
+
+# target to generate assembly for a file
+niveau3.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\allegro_projet_v1.dir\build.make CMakeFiles/allegro_projet_v1.dir/niveau3.c.s
+.PHONY : niveau3.c.s
+
+personnage.obj: personnage.c.obj
+.PHONY : personnage.obj
+
+# target to build an object file
+personnage.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\allegro_projet_v1.dir\build.make CMakeFiles/allegro_projet_v1.dir/personnage.c.obj
+.PHONY : personnage.c.obj
+
+personnage.i: personnage.c.i
+.PHONY : personnage.i
+
+# target to preprocess a source file
+personnage.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\allegro_projet_v1.dir\build.make CMakeFiles/allegro_projet_v1.dir/personnage.c.i
+.PHONY : personnage.c.i
+
+personnage.s: personnage.c.s
+.PHONY : personnage.s
+
+# target to generate assembly for a file
+personnage.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\allegro_projet_v1.dir\build.make CMakeFiles/allegro_projet_v1.dir/personnage.c.s
+.PHONY : personnage.c.s
 
 sauvegarde.obj: sauvegarde.c.obj
 .PHONY : sauvegarde.obj
@@ -185,9 +329,27 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... allegro_projet_v1
+	@echo ... decor.obj
+	@echo ... decor.i
+	@echo ... decor.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
+	@echo ... menu.obj
+	@echo ... menu.i
+	@echo ... menu.s
+	@echo ... niveau1.obj
+	@echo ... niveau1.i
+	@echo ... niveau1.s
+	@echo ... niveau2.obj
+	@echo ... niveau2.i
+	@echo ... niveau2.s
+	@echo ... niveau3.obj
+	@echo ... niveau3.i
+	@echo ... niveau3.s
+	@echo ... personnage.obj
+	@echo ... personnage.i
+	@echo ... personnage.s
 	@echo ... sauvegarde.obj
 	@echo ... sauvegarde.i
 	@echo ... sauvegarde.s
