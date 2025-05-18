@@ -112,4 +112,4 @@ void activerMalusAcceleration(t_personnage *p) {
 
 void activerMalusGravite(int* valeur) {
     *valeur = 3; // Tombe plus vite
-}
+}//a
