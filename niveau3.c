@@ -255,10 +255,12 @@ void jouer_niveau3(BITMAP* buffer2, t_personnage* perso,SAMPLE* music3,int music
             activerMalusGravite(&valeur_gravite);
         }
 
-        if (screen_x + perso->x + perso->width > x_ralenti_niveau3 && perso->y + perso->height < y_ralenti_niveau3 + 78 &&
-            perso->y > y_ralenti_niveau3) {
-            //On gere la detection des bonus et malus ici
-            activerBonusRalentissement(&perso);
+        if (malus_ralentissement_touche == 0 &&
+            screen_x + perso->x + perso->width > x_ralenti_niveau3 &&
+            screen_x + perso->x + perso->width < x_ralenti_niveau3 + 80 &&
+            perso->y + perso->height > y_ralenti_niveau3 &&
+            perso->y < y_ralenti_niveau3 + 78) {
+            activerBonusRalentissement(perso); // PAS &perso ! Juste perso
             malus_ralentissement_touche = 1;
         }
         if (screen_x + perso->x + perso->width > 2100) {
@@ -312,6 +314,7 @@ void jouer_niveau3(BITMAP* buffer2, t_personnage* perso,SAMPLE* music3,int music
             stop_sample(music3);
             ecran_fin_jeu3(false, buffer2, perso,music3,music_volume);
         } else {
+            stop_sample(music3);
             jouer_niveau3(buffer2, perso,music3,music_volume); // relancer avec une vie en moins
         }
     }

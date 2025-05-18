@@ -70,7 +70,7 @@ void chargerObjetsSpeciaux() {
     const char *nomsObjets[4] = {
         "sprite clonage magenta .bmp",
         "sprite gravite bmp.bmp",
-        "sprite ralenti bmp.bmp",
+        "sprite ralenti bmp2.bmp",
         "sprite accel bmp2.bmp"
     };
 
@@ -83,8 +83,8 @@ void chargerObjetsSpeciaux() {
     }
 }
 void afficherObjetsSpeciaux_niveau2(BITMAP *buffer) {
-    int x_accel_niveau2 = 1667; //3
-    int y_accel_niveau2 = 241;
+    int x_accel_niveau2 = 1620; //3
+    int y_accel_niveau2 = 210;
 
     draw_sprite(buffer, objetsSpeciaux[3], x_accel_niveau2, y_accel_niveau2);
 }
@@ -108,7 +108,7 @@ void libererObjetsSpeciaux() {
 }
 
 void activerBonusRalentissement(t_personnage *p) {
-    p->vx = -1; // Compense plus fort le scroll (ralenti perçu)
+    p->vx = -2; // Compense plus fort le scroll (ralenti perçu)
 }
 
 void activerMalusAcceleration(t_personnage *p) {

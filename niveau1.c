@@ -218,7 +218,6 @@ void jouer_niveau1(BITMAP* buffer2, t_personnage* perso,SAMPLE* music1,int music
         // Dessin du personnage
         dessinerPersonnage(perso, buffer2);
 
-        textprintf_ex(buffer2, font, 10, 10, makecol(255, 255, 255), -1, "Vies: %d", perso->nb_vies);
 
         //Dessin coeur
         afficher_vies(buffer2, coeur, perso->nb_vies);

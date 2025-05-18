@@ -248,9 +248,11 @@ void jouer_niveau2(BITMAP* buffer2, t_personnage* perso,SAMPLE* music2,int music
             }
         }
 
-        if ((screen_x + perso->x + perso->width > x_accel_niveau2 && perso->y + perso->height < y_accel_niveau2 + 78 &&
-             perso->y > y_accel_niveau2)) {
-            //On gere la detection des bonus et malus ici
+        if (bonus_accel_touche == 0 &&
+            screen_x + perso->x + perso->width > x_accel_niveau2 &&
+            screen_x + perso->x + perso->width < x_accel_niveau2 + 80 &&
+            perso->y + perso->height > y_accel_niveau2 &&
+            perso->y < y_accel_niveau2 + 78) {
             activerMalusAcceleration(perso);
             bonus_accel_touche = 1;
         }

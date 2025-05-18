@@ -59,6 +59,7 @@ void menu(BITMAP *buffer_menu,BITMAP *background,SAMPLE *music, t_personnage* pe
     SAMPLE *music2 = load_sample("michou.wav");
     SAMPLE *music3 = load_sample("kaaris.wav");
     bool peux_jouer = false;
+    int music_playing = 0;
 
     if (!bouton_image) {
         allegro_message("Erreur chargement bouton !");
@@ -72,8 +73,12 @@ void menu(BITMAP *buffer_menu,BITMAP *background,SAMPLE *music, t_personnage* pe
         allegro_message("Erreur chargement musique!");
         exit(1);
     }
+
     while (!key[KEY_ESC]) {
-        play_sample(music, music_volume, 128, 1000, 1);
+        if (!music_playing) {
+            play_sample(music, music_volume, 128, 1000, 1);
+            music_playing = 1;
+        }
         clear_bitmap(buffer_menu);
         show_mouse(NULL);
         //Dans cette partie on s'occupe uniquement d'afficher
@@ -85,17 +90,19 @@ void menu(BITMAP *buffer_menu,BITMAP *background,SAMPLE *music, t_personnage* pe
             show_difficulty_menu(buffer_menu, background2);
             if (jeux1) {
                 stop_sample(music);
-
+                music_playing = 0;
                 jouer_niveau1(buffer_menu, perso,music1,music_volume,music2,music3);
                 //allegro_message("Fin de jouer_niveau1()");
                 jeux1 = 0;
             } else if (jeux2 && perso->niveau1_fini == 1) {
                 stop_sample(music);
+                music_playing = 0;
                 jouer_niveau2(buffer_menu, perso,music2,music_volume,music3);
                 //allegro_message("Fin de jouer_niveau2()");
                 jeux2 = 0;
             } else if (jeux3 && perso->niveau2_fini == 1) {
                 stop_sample(music);
+                music_playing = 0;
                 jouer_niveau3(buffer_menu, perso,music3,music_volume);
                 //allegro_message("Fin de jouer_niveau3()");
                 jeux3 = 0;
