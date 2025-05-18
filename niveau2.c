@@ -290,14 +290,14 @@ void jouer_niveau2(BITMAP* buffer2, t_personnage* perso) {
         perso->niveau1_fini = 1;
         perso->nb_niveau += 1;
         sauvegarder(perso);
-        jouer_niveau2(buffer2, perso);
+        jouer_niveau3(buffer2, perso);
     } else {
         perso->nb_vies--;
 
         if (perso->nb_vies <= 0) {
             ecran_fin_jeu2(false, buffer2, perso);
         } else {
-            jouer_niveau3(buffer2, perso); // relancer avec une vie en moins
+            jouer_niveau2(buffer2, perso); // relancer avec une vie en moins
         }
     }
 
