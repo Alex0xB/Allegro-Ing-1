@@ -3,7 +3,11 @@
 
 #include <allegro.h>
 
-void charger_decor(int numero);  // Nouveau : charger le décor 1 ou 2
+// Fonctions pour chaque décor
+void charger_decor1();
+void charger_decor2();
+void charger_decor3();
+
 void afficher_decor();
 void detruire_decor();
 
