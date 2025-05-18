@@ -103,7 +103,7 @@ void libererObjetsSpeciaux() {
 }
 
 void activerBonusRalentissement(t_personnage *p) {
-    p->vx = -3; // Compense plus fort le scroll (ralenti perçu)
+    p->vx = -1; // Compense plus fort le scroll (ralenti perçu)
 }
 
 void activerMalusAcceleration(t_personnage *p) {

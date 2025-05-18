@@ -11,7 +11,7 @@ void gerer_mort(t_personnage* perso, bool* fin, int screen_x, bool* fin_echec);
 
 void gerer_reussite(t_personnage * perso, bool* fin, bool* fin_reussite, int screen_x);
 
-void ecran_fin_jeu(bool victoire, BITMAP* buffer2);
+void ecran_fin_jeu(bool victoire, BITMAP* buffer2, t_personnage* perso);
 
-void jouer_niveau1(BITMAP* buffer);
+void jouer_niveau1(BITMAP* buffer2, t_personnage* perso);
 #endif //NIVEAU1_H

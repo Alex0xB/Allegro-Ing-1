@@ -97,7 +97,7 @@ void gerer_reussite3(t_personnage * perso, bool* fin, bool* fin_reussite, int sc
     }
 }
 
-void ecran_fin_jeu3(bool victoire, BITMAP* buffer2) {
+void ecran_fin_jeu3(bool victoire, BITMAP* buffer2, t_personnage* perso) {
     BITMAP* fond = load_bitmap(victoire ? "fond_victoire.bmp" : "game_over.bmp", NULL);
 
     if (!fond || !buffer2) {
@@ -141,21 +141,19 @@ void ecran_fin_jeu3(bool victoire, BITMAP* buffer2) {
     destroy_bitmap(fond);
 
     if (action == 1) {
-        jouer_niveau3(buffer2);  // On rejoue le niveau
+        jouer_niveau3(buffer2, perso);  // On rejoue le niveau
     }
     // Sinon, on revient dans le menu des niveaux (rien à faire, ça reprend dans menu())
 }
 
 
-void jouer_niveau3(BITMAP* buffer2) {
+void jouer_niveau3(BITMAP* buffer2, t_personnage* perso) {
     bool fin = false;
     bool fin_scrol = false;
-    t_personnage perso;
     int screen_x = 0;
     int screen_y = 0;
     int touche_appuyer = 0;
     bool bloque_droite_ou_bas = false;
-    bool peux_jouer = false;
     bool fin_reussite = false;
     int malus_ralentissement_touche = 0;
     int valeur_gravite = 0;
@@ -165,113 +163,113 @@ void jouer_niveau3(BITMAP* buffer2) {
     int x_ralenti_niveau3 = 5525;//2
     int y_ralenti_niveau3 = 262;
 
-    // Chargement joueur
-    perso = charger(&peux_jouer);
+    // Initialisation personnage
+    initialiserPersonnage(perso, 100, 300, 0.6); // Position fixe x = 100
+    chargerSprites(perso);
 
-    if(peux_jouer) {
-         // Initialisation personnage
-        initialiserPersonnage(&perso, 100, 300, 0.6);  // Position fixe x = 100
-        chargerSprites(&perso);
+    // Chargement de la map et du buffer
+    BITMAP *niveau3_map = load_bitmap("decor3.bmp", NULL);
 
-        // Chargement de la map et du buffer
-        BITMAP* niveau3_map = load_bitmap("decor3.bmp", NULL);
+    //Objet speciaux
+    chargerObjetsSpeciaux();
+    afficherObjetsSpeciaux_niveau3(niveau3_map);
 
-        //Objet speciaux
-        chargerObjetsSpeciaux();
-        afficherObjetsSpeciaux_niveau3(niveau3_map);
-
-        // Boucle de jeu
-        while (!fin) {
-            // --- Début du jeu après appui sur espace ---
-            if (touche_appuyer == 1) {
-                if (!key[KEY_SPACE]) {
-                    // Gravité naturelle
-                    perso.vy = 10 + valeur_gravite;
-                    //perso.vx = 0;
-                }
-
-                // Animation du personnage
-                animerPersonnage(&perso);
-            }
-
-            // Dessin du décor
-            blit(niveau3_map, buffer2, screen_x, screen_y, 0, 0, SCREEN_W, SCREEN_H);
-
-            // Dessin du personnage
-            dessinerPersonnage(&perso, buffer2);
-
-            // Affichage du buffer à l’écran
-            blit(buffer2, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
-
-            // Gestion clavier
-            if (key[KEY_SPACE]) {
-                touche_appuyer = 1;
-                perso.vy = -10 - valeur_gravite;
+    // Boucle de jeu
+    while (!fin) {
+        // --- Début du jeu après appui sur espace ---
+        if (touche_appuyer == 1) {
+            if (!key[KEY_SPACE]) {
+                // Gravité naturelle
+                perso->vy = 10 + valeur_gravite;
                 //perso.vx = 0;
             }
 
-            // Gestion du scrolling : il avance TOUJOURS
-            if (touche_appuyer == 1 && !fin_scrol) {
-                screen_x += 5;
-
-                if (bloque_droite_ou_bas) {
-                    perso.vx = -5; // le scrolling avance, on compense
-                } else if(malus_ralentissement_touche == 0) {
-                    perso.vx = 0;  // pas de compensation
-                }
-            }
-
-            if(screen_x + perso.x + perso.width > x_gravite_niveau3 && perso.y + perso.height < y_gravite_niveau3+ 79 && perso.y > y_gravite_niveau3) { //On gere la detection des bonus et malus ici
-                activerMalusGravite(&valeur_gravite);
-            }
-
-            if(screen_x + perso.x + perso.width > x_ralenti_niveau3 && perso.y + perso.height < y_ralenti_niveau3+ 78 && perso.y > y_ralenti_niveau3) { //On gere la detection des bonus et malus ici
-                activerBonusRalentissement(&perso);
-                malus_ralentissement_touche = 1;
-            }
-            if(screen_x + perso.x + perso.width > 2100) {//fin gravite
-                valeur_gravite = 0;
-            }
-            if(screen_x + perso.x + perso.width > 6000) {// fin ralentissement
-                malus_ralentissement_touche = 0;
-            }
-
-            if (fin_scrol) {
-                perso.vx = 5; // ou 0 si tu veux qu'il reste immobile
-            }
-
-            // Gestion des collisions
-            gerer_collisions3(niveau3_map, &perso, screen_x, &bloque_droite_ou_bas);
-            gerer_mort3(&perso, &fin, screen_x, &fin_reussite);
-            gerer_reussite3(&perso, &fin, &fin_reussite, screen_x);
-
-            // Mise à jour de la position
-            perso.x += perso.vx;
-            perso.y += perso.vy;
-
-            // Gestion souris (pause future)
-            if (mouse_b & 1) {
-                // Pause ou autre fonctionnalité
-            }
-
-            // Cadence
-            rest(16);
+            // Animation du personnage
+            animerPersonnage(perso);
         }
 
-        // Nettoyage
-        libererSprites(&perso);
-        libererObjetsSpeciaux();
-        destroy_bitmap(niveau3_map);
+        // Dessin du décor
+        blit(niveau3_map, buffer2, screen_x, screen_y, 0, 0, SCREEN_W, SCREEN_H);
 
+        // Dessin du personnage
+        dessinerPersonnage(perso, buffer2);
+
+        // Affichage du buffer à l’écran
+        blit(buffer2, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+
+        // Gestion clavier
+        if (key[KEY_SPACE]) {
+            touche_appuyer = 1;
+            perso->vy = -10 - valeur_gravite;
+            //perso.vx = 0;
+        }
+
+        // Gestion du scrolling : il avance TOUJOURS
+        if (touche_appuyer == 1 && !fin_scrol) {
+            screen_x += 5;
+
+            if (bloque_droite_ou_bas) {
+                perso->vx = -5; // le scrolling avance, on compense
+            } else if (malus_ralentissement_touche == 0) {
+                perso->vx = 0; // pas de compensation
+            }
+        }
+
+        if (screen_x + perso->x + perso->width > x_gravite_niveau3 && perso->y + perso->height < y_gravite_niveau3 + 79 &&
+            perso->y > y_gravite_niveau3) {
+            //On gere la detection des bonus et malus ici
+            activerMalusGravite(&valeur_gravite);
+        }
+
+        if (screen_x + perso->x + perso->width > x_ralenti_niveau3 && perso->y + perso->height < y_ralenti_niveau3 + 78 &&
+            perso->y > y_ralenti_niveau3) {
+            //On gere la detection des bonus et malus ici
+            activerBonusRalentissement(&perso);
+            malus_ralentissement_touche = 1;
+        }
+        if (screen_x + perso->x + perso->width > 2100) {
+            //fin gravite
+            valeur_gravite = 0;
+        }
+        if (screen_x + perso->x + perso->width > 5600) {
+            // fin ralentissement
+            malus_ralentissement_touche = 0;
+        }
+
+        if (fin_scrol) {
+            perso->vx = 5; // ou 0 si tu veux qu'il reste immobile
+        }
+
+        // Gestion des collisions
+        gerer_collisions3(niveau3_map, perso, screen_x, &bloque_droite_ou_bas);
+        gerer_mort3(perso, &fin, screen_x, &fin_reussite);
+        gerer_reussite3(perso, &fin, &fin_reussite, screen_x);
+
+        // Mise à jour de la position
+        perso->x += perso->vx;
+        perso->y += perso->vy;
+
+        // Gestion souris (pause future)
+        if (mouse_b & 1) {
+            // Pause ou autre fonctionnalité
+        }
+
+        // Cadence
+        rest(16);
+    }
+
+    // Nettoyage
+    libererSprites(perso);
+    libererObjetsSpeciaux();
+    destroy_bitmap(niveau3_map);
+
+    if (fin_reussite) {
+        perso->niveau3_fini = 1;
+        perso->nb_niveau += 1;
         // Sauvegarde
-        sauvegarder(&perso);
-
-        if (fin_reussite) {
-            perso.niveau3_fini = 1;
-            perso.nb_niveau += 1;
-            ecran_fin_jeu3(true, buffer2);  // true = victoire
-        } else {
-            ecran_fin_jeu3(false, buffer2); // false = échec
-        }
+        sauvegarder(perso);
+        ecran_fin_jeu3(true, buffer2, perso); // true = victoire
+    } else {
+        ecran_fin_jeu3(false, buffer2, perso); // false = échec
     }
 }

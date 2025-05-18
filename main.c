@@ -29,7 +29,9 @@ int main() {
     BITMAP *background = load_bitmap("fond_menu1.bmp", NULL);
     SAMPLE *music = load_sample("musique_menu2.wav");
 
-    menu(buffer_menu,background,music);
+    t_personnage perso;
+
+    menu(buffer_menu,background,music,&perso);
 
     destroy_bitmap(buffer_menu);
     destroy_bitmap(background);
