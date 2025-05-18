@@ -9,7 +9,7 @@ void verifier_fin_scrolling(bool* fin_scrol, BITMAP* niveau1_map, int screen_x, 
 
 void gerer_mort(t_personnage* perso, bool* fin, int screen_x, bool* fin_echec);
 
-void gerer_reussite(t_personnage * perso, bool* fin, bool* fin_reussite);
+void gerer_reussite(t_personnage * perso, bool* fin, bool* fin_reussite, int screen_x);
 
 void ecran_fin_jeu(bool victoire, BITMAP* buffer2);
 

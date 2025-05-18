@@ -92,8 +92,15 @@ void gerer_mort(t_personnage* perso, bool* fin, int screen_x, bool* fin_reussite
     }
 }
 
-void gerer_reussite(t_personnage * perso, bool* fin, bool* fin_reussite) {
-
+void gerer_reussite(t_personnage * perso, bool* fin, bool* fin_reussite, int screen_x) {
+    int x_gauche = 7720;
+    int x_droite = 7863;
+    int y_haut = 261;
+    int y_bas = 450;
+    if(screen_x + perso->x + perso->width > x_gauche && perso->y + perso->height < y_bas && perso->y > y_haut ) {
+        *fin = true;
+        *fin_reussite = true;
+    }
 }
 
 void ecran_fin_jeu(bool victoire, BITMAP* buffer2) {
@@ -220,7 +227,7 @@ void jouer_niveau1(BITMAP* buffer2) {
             // Gestion des collisions
             gerer_collisions(niveau1_map, &perso, screen_x, &bloque_droite_ou_bas);
             gerer_mort(&perso, &fin, screen_x, &fin_reussite);
-            gerer_reussite(&perso, &fin, &fin_reussite);
+            gerer_reussite(&perso, &fin, &fin_reussite, screen_x);
 
             // Mise à jour de la position
             perso.x += perso.vx;
