@@ -119,7 +119,7 @@ void gerer_reussite3(t_personnage * perso, bool* fin, bool* fin_reussite, int sc
     }
 }
 
-void ecran_fin_jeu3(bool victoire, BITMAP* buffer2, t_personnage* perso) {
+void ecran_fin_jeu3(bool victoire, BITMAP* buffer2, t_personnage* perso,SAMPLE* music3,int music_volume) {
     BITMAP* fond = load_bitmap(victoire ? "fond_victoire.bmp" : "game_over.bmp", NULL);
 
     if (!fond || !buffer2) {
@@ -163,7 +163,7 @@ void ecran_fin_jeu3(bool victoire, BITMAP* buffer2, t_personnage* perso) {
     destroy_bitmap(fond);
 
     if (action == 1) {
-        jouer_niveau3(buffer2, perso);  // On rejoue le niveau
+        jouer_niveau3(buffer2, perso,music3,music_volume);  // On rejoue le niveau
     }
     // Sinon, on revient dans le menu des niveaux (rien à faire, ça reprend dans menu())
 }
@@ -176,7 +176,7 @@ void afficher_vies3(BITMAP *buffer, BITMAP *coeur, int nb_vies) {
     }
 }
 
-void jouer_niveau3(BITMAP* buffer2, t_personnage* perso) {
+void jouer_niveau3(BITMAP* buffer2, t_personnage* perso,SAMPLE* music3,int music_volume) {
     bool fin = false;
     bool fin_scrol = false;
     int screen_x = 0;
@@ -191,9 +191,10 @@ void jouer_niveau3(BITMAP* buffer2, t_personnage* perso) {
 
     int x_ralenti_niveau3 = 5525;//2
     int y_ralenti_niveau3 = 262;
-
+    play_sample(music3, music_volume, 128, 1000, 1);
     // Initialisation personnage
     initialiserPersonnage(perso, 100, 300, 0.6); // Position fixe x = 100
+    if (perso->nb_vies > 3 || perso->nb_vies < 1) perso->nb_vies = 3;
     chargerSprites(perso);
 
     // Chargement de la map et du buffer
@@ -277,7 +278,7 @@ void jouer_niveau3(BITMAP* buffer2, t_personnage* perso) {
         gerer_collisions3(niveau3_map, perso, screen_x, &bloque_droite_ou_bas);
         gerer_mort3(perso, &fin, screen_x, &fin_reussite);
         gerer_reussite3(perso, &fin, &fin_reussite, screen_x);
-        destroy_bitmap(coeur);
+
 
         // Mise à jour de la position
         perso->x += perso->vx;
@@ -296,19 +297,22 @@ void jouer_niveau3(BITMAP* buffer2, t_personnage* perso) {
     libererSprites(perso);
     libererObjetsSpeciaux();
     destroy_bitmap(niveau3_map);
+    destroy_bitmap(coeur);
 
     if (fin_reussite) {
         perso->niveau1_fini = 1;
         perso->nb_niveau += 1;
         sauvegarder(perso);
-        ecran_fin_jeu3(true, buffer2, perso);
+        stop_sample(music3);
+        ecran_fin_jeu3(true, buffer2, perso,music3,music_volume);
     } else {
         perso->nb_vies--;
 
         if (perso->nb_vies <= 0) {
-            ecran_fin_jeu3(false, buffer2, perso);
+            stop_sample(music3);
+            ecran_fin_jeu3(false, buffer2, perso,music3,music_volume);
         } else {
-            jouer_niveau3(buffer2, perso); // relancer avec une vie en moins
+            jouer_niveau3(buffer2, perso,music3,music_volume); // relancer avec une vie en moins
         }
     }
 }

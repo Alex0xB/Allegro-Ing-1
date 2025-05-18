@@ -122,7 +122,7 @@ void gerer_reussite(t_personnage * perso, bool* fin, bool* fin_reussite, int scr
     }
 }
 
-void ecran_fin_jeu(bool victoire, BITMAP* buffer2, t_personnage* perso) {
+void ecran_fin_jeu(bool victoire, BITMAP* buffer2, t_personnage* perso,SAMPLE* music1,int music_volume,SAMPLE* music2,SAMPLE* music3) {
     BITMAP* fond = load_bitmap(victoire ? "fond_victoire.bmp" : "game_over.bmp", NULL);
 
     if (!fond || !buffer2) {
@@ -166,7 +166,7 @@ void ecran_fin_jeu(bool victoire, BITMAP* buffer2, t_personnage* perso) {
     destroy_bitmap(fond);
 
     if (action == 1) {
-        jouer_niveau1(buffer2, perso);  // On rejoue le niveau
+        jouer_niveau1(buffer2, perso,music1,music_volume,music2,music3);  // On rejoue le niveau
     }
     // Sinon, on revient dans le menu des niveaux (rien à faire, ça reprend dans menu())
 }
@@ -179,7 +179,7 @@ void afficher_vies(BITMAP *buffer, BITMAP *coeur, int nb_vies) {
     }
 }
 
-void jouer_niveau1(BITMAP* buffer2, t_personnage* perso) {
+void jouer_niveau1(BITMAP* buffer2, t_personnage* perso,SAMPLE* music1,int music_volume,SAMPLE* music2,SAMPLE* music3) {
     bool fin = false;
     bool fin_scrol = false;
     int screen_x = 0;
@@ -187,7 +187,7 @@ void jouer_niveau1(BITMAP* buffer2, t_personnage* perso) {
     int touche_appuyer = 0;
     bool bloque_droite_ou_bas = false;
     bool fin_reussite = false;
-
+    play_sample(music1, music_volume, 128, 1000, 1);
     // Initialisation personnage
     initialiserPersonnage(perso, 100, 300, 0.6); // Position fixe x = 100
     if (perso->nb_vies > 3 || perso->nb_vies < 1) perso->nb_vies = 3;
@@ -276,14 +276,16 @@ void jouer_niveau1(BITMAP* buffer2, t_personnage* perso) {
         perso->niveau1_fini = 1;
         perso->nb_niveau += 1;
         sauvegarder(perso);
-        jouer_niveau2(buffer2, perso);
+        stop_sample(music1);
+        jouer_niveau2(buffer2, perso,music2,music_volume,music3);
     } else {
         perso->nb_vies--;
 
         if (perso->nb_vies <= 0) {
-            ecran_fin_jeu(false, buffer2, perso);
+            stop_sample(music1);
+            ecran_fin_jeu(false, buffer2, perso,music1,music_volume,music2,music3);
         } else {
-            jouer_niveau1(buffer2, perso); // relancer avec une vie en moins
+            jouer_niveau1(buffer2, perso,music1,music_volume,music2,music3); // relancer avec une vie en moins
         }
     }
 

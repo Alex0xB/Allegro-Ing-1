@@ -55,6 +55,9 @@ void draw_settings(BITMAP *buffer,BITMAP *background) {
 void menu(BITMAP *buffer_menu,BITMAP *background,SAMPLE *music, t_personnage* perso) {
     BITMAP *background2 = load_bitmap("fond_menu2.bmp", NULL);
     BITMAP* bouton_image = load_bitmap("bouton.bmp", NULL);
+    SAMPLE *music1 = load_sample("Musique mario bros.wav");
+    SAMPLE *music2 = load_sample("michou.wav");
+    SAMPLE *music3 = load_sample("kaaris.wav");
     bool peux_jouer = false;
 
     if (!bouton_image) {
@@ -69,8 +72,8 @@ void menu(BITMAP *buffer_menu,BITMAP *background,SAMPLE *music, t_personnage* pe
         allegro_message("Erreur chargement musique!");
         exit(1);
     }
-    play_sample(music, music_volume, 128, 1000, 1);
     while (!key[KEY_ESC]) {
+        play_sample(music, music_volume, 128, 1000, 1);
         clear_bitmap(buffer_menu);
         show_mouse(NULL);
         //Dans cette partie on s'occupe uniquement d'afficher
@@ -81,15 +84,19 @@ void menu(BITMAP *buffer_menu,BITMAP *background,SAMPLE *music, t_personnage* pe
             }
             show_difficulty_menu(buffer_menu, background2);
             if (jeux1) {
-                jouer_niveau1(buffer_menu, perso);
+                stop_sample(music);
+
+                jouer_niveau1(buffer_menu, perso,music1,music_volume,music2,music3);
                 //allegro_message("Fin de jouer_niveau1()");
                 jeux1 = 0;
             } else if (jeux2 && perso->niveau1_fini == 1) {
-                jouer_niveau2(buffer_menu, perso);
+                stop_sample(music);
+                jouer_niveau2(buffer_menu, perso,music2,music_volume,music3);
                 //allegro_message("Fin de jouer_niveau2()");
                 jeux2 = 0;
             } else if (jeux3 && perso->niveau2_fini == 1) {
-                jouer_niveau3(buffer_menu, perso);
+                stop_sample(music);
+                jouer_niveau3(buffer_menu, perso,music3,music_volume);
                 //allegro_message("Fin de jouer_niveau3()");
                 jeux3 = 0;
             }

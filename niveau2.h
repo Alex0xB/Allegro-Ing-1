@@ -11,9 +11,9 @@ void gerer_mort2(t_personnage* perso, bool* fin, int screen_x, bool* fin_echec);
 
 void gerer_reussite2(t_personnage * perso, bool* fin, bool* fin_reussite, int screen_x);
 
-void ecran_fin_jeu2(bool victoire, BITMAP* buffer2, t_personnage* perso);
+void ecran_fin_jeu2(bool victoire, BITMAP* buffer2, t_personnage* perso,SAMPLE* music2,int music_volume,SAMPLE* music3);
 
 void afficher_vies2(BITMAP *buffer, BITMAP *coeur, int nb_vies);
 
-void jouer_niveau2(BITMAP* buffer, t_personnage* perso);
+void jouer_niveau2(BITMAP* buffer, t_personnage* perso,SAMPLE* music2,int music_volume,SAMPLE* music3);
 #endif //NIVEAU2_H
