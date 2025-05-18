@@ -190,6 +190,7 @@ void jouer_niveau1(BITMAP* buffer2, t_personnage* perso) {
 
     // Initialisation personnage
     initialiserPersonnage(perso, 100, 300, 0.6); // Position fixe x = 100
+    if (perso->nb_vies > 3 || perso->nb_vies < 1) perso->nb_vies = 3;
     chargerSprites(perso);
 
     // Chargement de la map et du buffer
