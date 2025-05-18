@@ -3,6 +3,8 @@
 #include <allegro.h>
 #include "menu.h"
 #include "niveau1.h"
+#include "niveau2.h"
+#include "niveau3.h"
 
 #define SCREEN_W 1920
 #define SCREEN_H 1080
@@ -78,9 +80,13 @@ void menu(BITMAP *buffer_menu,BITMAP *background,SAMPLE *music) {
                 jeux1 = 0;
             }
             else if (jeux2) {
+                jouer_niveau2(buffer_menu);
+                //allegro_message("Fin de jouer_niveau2()");
                 jeux2 = 0;
             }
             else if (jeux3) {
+                jouer_niveau3(buffer_menu);
+                //allegro_message("Fin de jouer_niveau3()");
                 jeux3 = 0;
             }
         }

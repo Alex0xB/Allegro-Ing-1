@@ -11,5 +11,9 @@ add_executable(allegro_projet_v1 main.c
         menu.h
         decor.c
         decor.h
-        niveau1.c)
+        niveau1.c
+        niveau2.c
+        niveau2.h
+        niveau3.c
+        niveau3.h)
 target_link_libraries(allegro_projet_v1 -lmingw32 -lalleg44)

@@ -66,7 +66,7 @@ void chargerObjetsSpeciaux() {
         "sprite clonage magenta .bmp",
         "sprite gravite bmp.bmp",
         "sprite ralenti bmp.bmp",
-        "sprite accel bmp.bmp"
+        "sprite accel bmp2.bmp"
     };
 
     for (int i = 0; i < 4; i++) {
@@ -77,13 +77,23 @@ void chargerObjetsSpeciaux() {
         }
     }
 }
-void afficherObjetsSpeciaux(BITMAP *buffer) {
-    int x = 50;
-    int y = 500;
+void afficherObjetsSpeciaux_niveau2(BITMAP *buffer) {
+    int x_accel_niveau2 = 1667; //3
+    int y_accel_niveau2 = 241;
 
-    for (int i = 0; i < 4; i++) {
-        draw_sprite(buffer, objetsSpeciaux[i], x + i * 80, y);
-    }
+    draw_sprite(buffer, objetsSpeciaux[3], x_accel_niveau2, y_accel_niveau2);
+}
+void afficherObjetsSpeciaux_niveau3(BITMAP *buffer) {
+
+    int x_gravite_niveau3 = 1638;//1
+    int y_gravite_niveau3 = 236;
+
+    int x_ralenti_niveau3 = 5525;//2
+    int y_ralenti_niveau3 = 262;
+
+    draw_sprite(buffer, objetsSpeciaux[1], x_gravite_niveau3, y_gravite_niveau3); //gravite
+
+    draw_sprite(buffer, objetsSpeciaux[2], x_ralenti_niveau3, y_ralenti_niveau3);//ralenti
 }
 
 void libererObjetsSpeciaux() {
@@ -93,13 +103,13 @@ void libererObjetsSpeciaux() {
 }
 
 void activerBonusRalentissement(t_personnage *p) {
-    p->vx = -10; // Compense plus fort le scroll (ralenti perçu)
+    p->vx = -3; // Compense plus fort le scroll (ralenti perçu)
 }
 
 void activerMalusAcceleration(t_personnage *p) {
-    p->vx = 3; // Compensation moins forte → scroll paraît plus rapide
+    p->vx = 10; // Compensation moins forte → scroll paraît plus rapide
 }
 
-void activerMalusGravite(t_personnage *p) {
-    p->vy = 3; // Tombe plus vite
+void activerMalusGravite(int* valeur) {
+    *valeur = 3; // Tombe plus vite
 }

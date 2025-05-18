@@ -25,7 +25,8 @@ typedef struct {
 
 // Fonctions
 void chargerObjetsSpeciaux();
-void afficherObjetsSpeciaux(BITMAP *buffer);
+void afficherObjetsSpeciaux_niveau2(BITMAP *buffer);
+void afficherObjetsSpeciaux_niveau3(BITMAP *buffer);
 void libererObjetsSpeciaux();
 void initialiserPersonnage(t_personnage *p, float x, float y, float lift);
 void chargerSprites(t_personnage *p);
@@ -35,5 +36,5 @@ void libererSprites(t_personnage *p);
 
 void activerBonusRalentissement(t_personnage *p);
 void activerMalusAcceleration(t_personnage *p);
-void activerMalusGravite(t_personnage *p);
+void activerMalusGravite(int* valeur);
 #endif //PERSONNAGE_H
