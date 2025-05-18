@@ -188,6 +188,15 @@ void jouer_niveau1(BITMAP* buffer2) {
                     perso.vy = 10;
                     perso.vx = 0;
                 }
+                if (key[KEY_R]) {
+                    activerBonusRalentissement(&perso);
+                }
+                if (key[KEY_A]) {
+                    activerMalusAcceleration(&perso);
+                }
+                if (key[KEY_G]) {
+                    activerMalusGravite(&perso);
+                }
 
                 // Animation du personnage
                 animerPersonnage(&perso);

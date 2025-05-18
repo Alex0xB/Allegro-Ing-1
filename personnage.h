@@ -32,4 +32,8 @@ void chargerSprites(t_personnage *p);
 void animerPersonnage(t_personnage *p);
 void dessinerPersonnage(t_personnage *p, BITMAP *buffer);
 void libererSprites(t_personnage *p);
+
+void activerBonusRalentissement(t_personnage *p);
+void activerMalusAcceleration(t_personnage *p);
+void activerMalusGravite(t_personnage *p);
 #endif //PERSONNAGE_H

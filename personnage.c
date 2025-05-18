@@ -92,3 +92,14 @@ void libererObjetsSpeciaux() {
     }
 }
 
+void activerBonusRalentissement(t_personnage *p) {
+    p->vx = -10; // Compense plus fort le scroll (ralenti perçu)
+}
+
+void activerMalusAcceleration(t_personnage *p) {
+    p->vx = -2; // Compensation moins forte → scroll paraît plus rapide
+}
+
+void activerMalusGravite(t_personnage *p) {
+    p->vy = 3; // Tombe plus vite
+}
