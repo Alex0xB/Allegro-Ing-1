@@ -92,7 +92,51 @@ void gerer_collisions3(BITMAP* map, t_personnage* perso, int screen_x, bool* blo
         }
     }
 }
+int menu_pause3(BITMAP* buffer2) {
+    int choix = 0; // 1 = Reprendre, 2 = Quitter
+    bool pause_active = true;
 
+    BITMAP* fond = load_bitmap("ecran_pause.bmp", NULL);
+    if (!fond) {
+        allegro_message("Erreur de chargement du fond de pause !");
+        return 1; // Par défaut : Reprendre
+    }
+
+    while (pause_active) {
+        // Afficher l'image en fond
+        blit(fond, buffer2, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+
+        // Bouton Reprendre
+        rectfill(buffer2, SCREEN_W/2 - 100, SCREEN_H/2 - 30, SCREEN_W/2 + 100, SCREEN_H/2 + 20, makecol(0, 0, 0));
+        textout_centre_ex(buffer2, font, "Reprendre", SCREEN_W/2, SCREEN_H/2 - 10, makecol(230, 230, 230), -1);
+
+        // Bouton Quitter
+        rectfill(buffer2, SCREEN_W/2 - 100, SCREEN_H/2 + 60, SCREEN_W/2 + 100, SCREEN_H/2 + 110, makecol(0, 0, 0));
+        textout_centre_ex(buffer2, font, "Quitter", SCREEN_W/2, SCREEN_H/2 + 80, makecol(180, 180, 220), -1);
+
+        show_mouse(buffer2);
+        blit(buffer2, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+
+        // Clique souris
+        if (mouse_b & 1) {
+            if (mouse_x > SCREEN_W/2 - 100 && mouse_x < SCREEN_W/2 + 100) {
+                if (mouse_y > SCREEN_H/2 - 30 && mouse_y < SCREEN_H/2 + 20) {
+                    choix = 1; // Reprendre
+                    pause_active = false;
+                }
+                if (mouse_y > SCREEN_H/2 + 60 && mouse_y < SCREEN_H/2 + 110) {
+                    choix = 2; // Quitter
+                    pause_active = false;
+                }
+            }
+        }
+
+        rest(16);
+    }
+
+    destroy_bitmap(fond);
+    return choix;
+}
 void verifier_fin_scrolling3(bool* fin_scrol, BITMAP* niveau1_map, int screen_x, t_personnage* perso) {
     //Cette fonctionnalite est temporairement enleve pcq probleme avec detection
     if(niveau1_map->w - screen_x + 10 <= SCREEN_W) { //permet de verifier que si on atteint la fin du bitmap il n'y ai plus de scrolling
@@ -181,6 +225,7 @@ void jouer_niveau3(BITMAP* buffer2, t_personnage* perso,SAMPLE* music3,int music
     bool fin_scrol = false;
     int screen_x = 0;
     int screen_y = 0;
+    int pause_action;
     int touche_appuyer = 0;
     bool bloque_droite_ou_bas = false;
     bool fin_reussite = false;
@@ -280,7 +325,16 @@ void jouer_niveau3(BITMAP* buffer2, t_personnage* perso,SAMPLE* music3,int music
         gerer_collisions3(niveau3_map, perso, screen_x, &bloque_droite_ou_bas);
         gerer_mort3(perso, &fin, screen_x, &fin_reussite);
         gerer_reussite3(perso, &fin, &fin_reussite, screen_x);
+        // Pause : clic droit ou touche P
+        if (key[KEY_ESC]) {
+            pause_action = menu_pause3(buffer2);
 
+            if (pause_action == 2) {
+                fin = true;
+            }
+
+            rest(200); // anti double-clic
+        }
 
         // Mise à jour de la position
         perso->x += perso->vx;
@@ -313,7 +367,10 @@ void jouer_niveau3(BITMAP* buffer2, t_personnage* perso,SAMPLE* music3,int music
         if (perso->nb_vies <= 0) {
             stop_sample(music3);
             ecran_fin_jeu3(false, buffer2, perso,music3,music_volume);
-        } else {
+        }else if(pause_action == 2) {
+            stop_sample(music3);
+        }
+            else {
             stop_sample(music3);
             jouer_niveau3(buffer2, perso,music3,music_volume); // relancer avec une vie en moins
         }

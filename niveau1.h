@@ -16,4 +16,5 @@ void ecran_fin_jeu(bool victoire, BITMAP* buffer2, t_personnage* perso,SAMPLE* m
 void afficher_vies(BITMAP *buffer, BITMAP *coeur, int nb_vies);
 
 void jouer_niveau1(BITMAP* buffer2, t_personnage* perso,SAMPLE* music1,int music_volume,SAMPLE* music2,SAMPLE* music3);
+int menu_pause(BITMAP *buffer2);
 #endif //NIVEAU1_H
